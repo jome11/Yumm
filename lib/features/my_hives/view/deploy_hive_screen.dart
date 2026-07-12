@@ -137,7 +137,7 @@ class _DeployHiveBodyState extends State<_DeployHiveBody> {
                   ),
                   const SizedBox(height: 20),
 
-                  // --- Select Hive Configuration (cards) ---
+
                   _SectionCard(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,7 +193,7 @@ class _DeployHiveBodyState extends State<_DeployHiveBody> {
                   ),
                   const SizedBox(height: 16),
 
-                  // --- Expert tip ---
+
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(

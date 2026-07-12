@@ -1,5 +1,4 @@
-/// Thin exception wrapper so ViewModels can show friendly
-/// messages regardless of the underlying data source error.
+
 class AppException implements Exception {
   final String message;
   AppException(this.message);

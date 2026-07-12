@@ -1,7 +1,6 @@
 import '../../models/user_model.dart';
 
-/// In a real app this would call Dio/http against your backend.
-/// It's mocked here so the project runs standalone out of the box.
+
 class AuthRemoteDatasource {
   Future<UserModel> login({
     required String email,

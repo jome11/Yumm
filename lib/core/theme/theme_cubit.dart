@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// App-wide dark/light mode toggle, persisted locally. Lives at the
-/// top of the widget tree (see main.dart) so both the Settings screen
-/// and MaterialApp share the same instance.
+
 class ThemeCubit extends Cubit<ThemeMode> {
   static const _kKey = 'theme_mode_is_dark';
 

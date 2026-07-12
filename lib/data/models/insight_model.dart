@@ -13,14 +13,14 @@ String insightTagLabel(InsightTag tag) {
   }
 }
 
-/// A single card in the "Intelligence" feed.
+
 class InsightModel extends Equatable {
   final String id;
   final String title;
   final String description;
   final InsightTag tag;
-  final String meta; // e.g. "Hive #06 · 18m ago"
-  final String? relatedHiveId; // null when not tied to a specific hive
+  final String meta;
+  final String? relatedHiveId;
 
   const InsightModel({
     required this.id,

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
-/// Central text style catalogue. Static styles are theme-agnostic
-/// (weight/size only); use the context-aware helpers below when a
-/// style also needs to flip color between light/dark mode.
+
 class AppTextStyles {
   AppTextStyles._();
 

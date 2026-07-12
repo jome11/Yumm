@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// Maps to the four stat cards on the Overview screen:
-/// Total Hives / Season Yield / Health Score / Ambient Temp.
+
 class OverviewStatsModel extends Equatable {
   final int totalHives;
   final int totalHivesDeltaThisMonth;

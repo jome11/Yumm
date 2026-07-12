@@ -4,8 +4,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/routes/app_routes.dart';
 
-/// The marketing/landing screen shown before login — matches the
-/// "The Intelligence Behind the Hive" Figma frame.
+
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 

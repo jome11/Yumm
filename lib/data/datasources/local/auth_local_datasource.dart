@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Persists a lightweight "is logged in" flag + cached user fields
-/// so SplashScreen can decide where to route on cold start.
+
 class AuthLocalDatasource {
   static const _kIsLoggedIn = 'is_logged_in';
   static const _kUserId = 'user_id';

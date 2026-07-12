@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// Matches the four states shown in the Figma designs:
-/// Harvest Ready (gold), Warning (red), Optimal (green), Routine (blue).
+
 enum HiveStatus { harvestReady, warning, optimal, routine }
 
 HiveStatus hiveStatusFromString(String value) {

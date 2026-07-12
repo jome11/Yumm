@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/widgets/app_text_field.dart';
 
-/// Thin wrapper kept for auth-specific tweaks (e.g. autofill hints)
-/// without touching the generic shared AppTextField.
+
 class AuthFormField extends StatelessWidget {
   final String label;
   final String? hint;

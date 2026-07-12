@@ -89,8 +89,7 @@ class AppTheme {
         ),
         hintStyle: TextStyle(color: textSecondary),
       ),
-      // Bottom nav is always dark chrome, regardless of theme mode —
-      // see DashboardShell, which builds its own Theme() wrapper.
+
       dividerColor: divider,
       switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.resolveWith(

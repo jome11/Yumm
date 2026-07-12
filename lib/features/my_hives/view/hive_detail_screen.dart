@@ -15,8 +15,7 @@ import '../viewmodel/hive_detail_bloc.dart';
 import '../viewmodel/hive_detail_event.dart';
 import '../viewmodel/hive_detail_state.dart';
 
-/// Pushed via Navigator.pushNamed(context, AppRoutes.hiveDetail,
-/// arguments: hiveId) — see route_generator.dart.
+
 class HiveDetailScreen extends StatelessWidget {
   final String hiveId;
   const HiveDetailScreen({super.key, required this.hiveId});

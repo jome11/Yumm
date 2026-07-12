@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 
-/// Primary call-to-action button with a built-in loading state,
-/// used across auth screens, deploy hive form, etc.
+
 class AppButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;

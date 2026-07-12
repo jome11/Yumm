@@ -11,14 +11,12 @@ import '../../data/repositories/hive_repository.dart';
 import '../../data/repositories/recommendation_repository.dart';
 import '../theme/theme_cubit.dart';
 
-/// Global service locator. Call [setupServiceLocator] once in main()
-/// before runApp. Every ViewModel (Bloc/Cubit) resolves its
-/// repository dependency through `sl<T>()` instead of constructing
-/// it inline, which keeps the UI layer decoupled from data layer.
+
+
 final GetIt sl = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
-  // Datasources
+
   sl.registerLazySingleton<AuthRemoteDatasource>(() => AuthRemoteDatasource());
   sl.registerLazySingleton<AuthLocalDatasource>(() => AuthLocalDatasource());
   sl.registerLazySingleton<HiveRemoteDatasource>(() => HiveRemoteDatasource());
@@ -27,7 +25,7 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton<RecommendationRemoteDatasource>(
       () => RecommendationRemoteDatasource());
 
-  // Repositories
+
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepository(
       remoteDatasource: sl(),
@@ -44,6 +42,5 @@ Future<void> setupServiceLocator() async {
     () => RecommendationRepository(remoteDatasource: sl()),
   );
 
-  // App-wide dark/light mode state — single shared instance.
   sl.registerLazySingleton<ThemeCubit>(() => ThemeCubit());
 }

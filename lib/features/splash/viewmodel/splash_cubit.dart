@@ -8,8 +8,7 @@ class SplashState {
   const SplashState(this.status);
 }
 
-/// Simple Cubit (not a full Bloc) since this screen has exactly one
-/// job: decide where to route on cold start.
+
 class SplashCubit extends Cubit<SplashState> {
   final AuthRepository authRepository;
 

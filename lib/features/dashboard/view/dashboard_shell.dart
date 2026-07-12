@@ -7,10 +7,7 @@ import '../../my_hives/view/my_hives_screen.dart';
 import '../../settings/view/settings_screen.dart';
 import 'overview_screen.dart';
 
-/// Bottom-nav shell hosting the five primary tabs from the Figma
-/// design: Home / Hives / Analytics / Feed / Settings.
-/// The nav bar itself is always dark chrome, independent of the
-/// app's light/dark ThemeMode, matching the design exactly.
+
 class DashboardShell extends StatefulWidget {
   const DashboardShell({super.key});
 

@@ -1,12 +1,11 @@
-/// Static copy used across the app. Keeping these centralized makes
-/// future localization (intl) far easier.
+
 class AppStrings {
   AppStrings._();
 
   static const appName = 'Yumm';
   static const tagline = 'The Digital Apiary';
 
-  // Welcome / marketing screen
+
   static const welcomeHeadline1 = 'The';
   static const welcomeHeadline2 = 'Intelligence';
   static const welcomeHeadline3 = 'Behind  the';
@@ -19,7 +18,7 @@ class AppStrings {
   static const getStartedNow = 'Get Started Now';
   static const contactSales = 'Contact Sales';
 
-  // Auth
+
   static const login = 'Login';
   static const signup = 'Sign Up';
   static const email = 'Email';
@@ -36,7 +35,7 @@ class AppStrings {
   static const signIn = 'Sign In';
   static const newToApiary = 'New to the apiary?';
 
-  // Dashboard / bottom nav
+
   static const home = 'Home';
   static const overview = 'Overview';
   static const myHives = 'My Hives';

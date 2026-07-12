@@ -4,8 +4,6 @@ import '../../../core/constants/app_text_styles.dart';
 import '../../../data/models/hive_model.dart';
 import '../viewmodel/my_hives_event.dart';
 
-/// Bottom sheet for the "Filter" action on My Hives.
-/// Returns the selected status (or null for "All") via Navigator.pop.
 class HiveFilterSheet extends StatelessWidget {
   final HiveStatus? currentFilter;
   const HiveFilterSheet({super.key, required this.currentFilter});
@@ -42,7 +40,7 @@ class HiveFilterSheet extends StatelessWidget {
   }
 }
 
-/// Bottom sheet for the "Sort" action on My Hives.
+
 class HiveSortSheet extends StatelessWidget {
   final MyHivesSort currentSort;
   const HiveSortSheet({super.key, required this.currentSort});

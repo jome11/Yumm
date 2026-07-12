@@ -2,8 +2,7 @@ import '../../models/hive_model.dart';
 import '../../models/insight_model.dart';
 import '../../models/overview_stats_model.dart';
 
-/// Mocked network layer mirroring the data shown on
-/// yumm-hive.vercel.app/dashboard and the Figma designs.
+
 class HiveRemoteDatasource {
   Future<OverviewStatsModel> getOverviewStats() async {
     await Future.delayed(const Duration(milliseconds: 700));

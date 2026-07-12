@@ -12,9 +12,6 @@ import '../../features/splash/view/splash_screen.dart';
 import '../../data/models/hive_model.dart';
 import 'app_routes.dart';
 
-/// Single source of truth mapping route names -> screens.
-/// Used by MaterialApp's onGenerateRoute, so every navigation call
-/// elsewhere in the app stays a plain Navigator.pushNamed/push/pop.
 class RouteGenerator {
   RouteGenerator._();
 
@@ -32,9 +29,7 @@ class RouteGenerator {
       case AppRoutes.signup:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
 
-      // The main tabs (My Hives / Analytics / Feed / Settings) live as
-      // tabs inside DashboardShell; these routes are kept for deep
-      // links (e.g. a notification) and simply land on the shell.
+
       case AppRoutes.dashboard:
       case AppRoutes.myHives:
       case AppRoutes.analytics:

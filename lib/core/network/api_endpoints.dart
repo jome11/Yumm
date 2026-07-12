@@ -1,5 +1,4 @@
-/// Placeholder endpoint constants for when the mock datasources
-/// are swapped for a real backend (e.g. via Dio/http).
+
 class ApiEndpoints {
   ApiEndpoints._();
 

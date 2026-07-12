@@ -7,9 +7,7 @@ import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../data/models/hive_model.dart';
 
-/// Shows a single hive's location on an OpenStreetMap tile layer.
-/// Pushed via Navigator.pushNamed(context, AppRoutes.hiveLocation,
-/// arguments: hive) from HiveDetailScreen's "View Location" button.
+
 class HiveLocationScreen extends StatelessWidget {
   final HiveModel hive;
   const HiveLocationScreen({super.key, required this.hive});

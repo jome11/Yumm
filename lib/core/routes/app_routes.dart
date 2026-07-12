@@ -1,6 +1,4 @@
-/// Central route name constants. Never hardcode a route string in a
-/// screen — reference these instead so the whole app stays
-/// refactor-safe with plain Navigator.pushNamed/push.
+
 class AppRoutes {
   AppRoutes._();
 
