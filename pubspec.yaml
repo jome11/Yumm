@@ -31,9 +31,32 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # State management (MVVM ViewModels)
+  flutter_bloc: ^8.1.6
+  equatable: ^2.1.0
+
+  # Dependency injection / service locator
+  get_it: ^7.7.0
+
+  # Local persistence (auth session, theme preference)
+  shared_preferences: ^2.5.5
+
+  # Charts (Analytics screen, Home season-yield sparkline)
+  fl_chart: ^0.68.0
+
+  # QR code rendering (Hive Detail screen)
+  qr_flutter: ^4.1.0
+
+  # OpenStreetMap rendering (Hive Detail -> View Location)
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.1
+
+  # Date/number formatting utilities
+  intl: ^0.19.0
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.9
 
 dev_dependencies:
   flutter_test:
@@ -57,10 +80,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  # Brand assets (logo mark + wordmark) used on Splash, Welcome, and Login.
+  assets:
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
