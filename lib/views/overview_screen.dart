@@ -1,19 +1,17 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yumm/viewmodels/theme_cubit.dart';
-import 'package:yumm/views/widgets/error_view.dart';
-import 'package:yumm/views/widgets/loading_indicator.dart';
 import 'package:yumm/repositories/analytics_repository.dart';
 import 'package:yumm/repositories/auth_repository.dart';
 import 'package:yumm/repositories/hive_repository.dart';
-import 'package:yumm/views/widgets/insight_feed_card.dart';
 import 'package:yumm/viewmodels/overview_bloc.dart';
 import 'package:yumm/viewmodels/overview_event.dart';
 import 'package:yumm/viewmodels/overview_state.dart';
-import 'package:yumm/views/widgets/hive_fleet_card.dart';
-import 'package:yumm/views/widgets/stat_card.dart';
-import 'package:yumm/views/widgets/yield_sparkline.dart';
+import 'package:yumm/models/hive_model.dart';
+import 'package:yumm/models/insight_model.dart';
+import 'package:yumm/models/yield_point_model.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/routes.dart';
 
@@ -45,18 +43,29 @@ class _OverviewBody extends StatelessWidget {
         child: BlocBuilder<OverviewBloc, OverviewState>(
           builder: (context, state) {
             if (state.status == OverviewStatus.loading || state.status == OverviewStatus.initial) {
-              return const LoadingIndicator();
+              return const Center(child: CircularProgressIndicator(color: AppColors.primary));
             }
+
             if (state.status == OverviewStatus.failure) {
-              return ErrorView(
-                message: state.errorMessage ?? 'Failed to load dashboard.',
-                onRetry: () => context.read<OverviewBloc>().add(const OverviewRequested()),
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(state.errorMessage ?? 'Failed to load dashboard.', style: AppTextStyles.bodySecondaryc(context)),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () => context.read<OverviewBloc>().add(const OverviewRequested()),
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                ),
               );
             }
 
             final stats = state.stats!;
-            final userName = (state.user?.name ?? 'Natnael').split(' ').first;
+            final userName = (state.user?.name ?? 'Yoseph').split(' ').first;
             final topInsight = state.insights.isNotEmpty ? state.insights.first : null;
+            final alertCount = state.hives.where((h) => h.status == HiveStatus.warning).length;
 
             return RefreshIndicator(
               onRefresh: () async => context.read<OverviewBloc>().add(const OverviewRefreshed()),
@@ -70,8 +79,7 @@ class _OverviewBody extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(AppStrings.goodMorning, style: AppTextStyles.captionc(context)),
-                          Text(userName,
-                              style: AppTextStyles.h1c(context).copyWith(fontStyle: FontStyle.italic)),
+                          Text(userName, style: AppTextStyles.h1c(context).copyWith(fontStyle: FontStyle.italic)),
                         ],
                       ),
                       Row(
@@ -93,10 +101,7 @@ class _OverviewBody extends StatelessWidget {
                             child: Container(
                               width: 36,
                               height: 36,
-                              decoration: BoxDecoration(
-                                color: AppColors.surface(context),
-                                shape: BoxShape.circle,
-                              ),
+                              decoration: BoxDecoration(color: AppColors.surface(context), shape: BoxShape.circle),
                               child: Icon(
                                 isDark ? Icons.dark_mode_rounded : Icons.wb_sunny_rounded,
                                 color: AppColors.primary,
@@ -111,10 +116,7 @@ class _OverviewBody extends StatelessWidget {
                   const SizedBox(height: 20),
                   Container(
                     padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: AppColors.surface(context),
-                      borderRadius: BorderRadius.circular(22),
-                    ),
+                    decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(22)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -130,8 +132,7 @@ class _OverviewBody extends StatelessWidget {
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Text('${stats.seasonYieldKg.toStringAsFixed(0)}',
-                                          style: AppTextStyles.h1c(context)),
+                                      Text(stats.seasonYieldKg.toStringAsFixed(0), style: AppTextStyles.h1c(context)),
                                       const SizedBox(width: 6),
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 5),
@@ -153,8 +154,7 @@ class _OverviewBody extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Text('${stats.healthScorePercent}%',
-                                      style: const TextStyle(
-                                          color: AppColors.accentGreen, fontWeight: FontWeight.w800, fontSize: 16)),
+                                      style: const TextStyle(color: AppColors.accentGreen, fontWeight: FontWeight.w800, fontSize: 16)),
                                   const Text('Health', style: TextStyle(color: AppColors.accentGreen, fontSize: 11)),
                                 ],
                               ),
@@ -162,7 +162,7 @@ class _OverviewBody extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 10),
-                        YieldSparkline(points: state.yieldHistory),
+                        _sparkline(state.yieldHistory),
                       ],
                     ),
                   ),
@@ -173,10 +173,7 @@ class _OverviewBody extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface(context),
-                        borderRadius: BorderRadius.circular(18),
-                      ),
+                      decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
                       child: Row(
                         children: [
                           Icon(Icons.camera_alt_outlined, color: AppColors.textPrimary(context)),
@@ -195,37 +192,18 @@ class _OverviewBody extends StatelessWidget {
                   const SizedBox(height: 14),
                   Row(
                     children: [
-                      Expanded(
-                        child: StatCard(
-                          value: '${stats.totalHives}',
-                          label: 'HIVES',
-                          icon: Icons.hexagon_outlined,
-                        ),
-                      ),
+                      Expanded(child: _statCard(context, value: '${stats.totalHives}', label: 'HIVES', icon: Icons.hexagon_outlined)),
                       const SizedBox(width: 10),
-                      Expanded(
-                        child: StatCard(
-                          value: '${stats.ambientTempCelsius}c',
-                          label: 'TEMP',
-                          icon: Icons.thermostat_rounded,
-                        ),
-                      ),
+                      Expanded(child: _statCard(context, value: '${stats.ambientTempCelsius}c', label: 'TEMP', icon: Icons.thermostat_rounded)),
                       const SizedBox(width: 10),
-                      Expanded(
-                        child: StatCard(
-                          value: '${state.hives.where((h) => h.status.name == 'warning').length}',
-                          label: 'ALERTS',
-                          icon: Icons.notifications_none_rounded,
-                        ),
-                      ),
+                      Expanded(child: _statCard(context, value: '$alertCount', label: 'ALERTS', icon: Icons.notifications_none_rounded)),
                     ],
                   ),
                   const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(AppStrings.fleetStatus,
-                          style: AppTextStyles.h3c(context).copyWith(fontStyle: FontStyle.italic)),
+                      Text(AppStrings.fleetStatus, style: AppTextStyles.h3c(context).copyWith(fontStyle: FontStyle.italic)),
                       TextButton(
                         onPressed: () => Navigator.pushNamed(context, AppRoutes.myHives),
                         child: Row(
@@ -240,17 +218,18 @@ class _OverviewBody extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   ...state.hives.take(3).map(
-                        (hive) => HiveFleetCard(
+                        (hive) => _fleetCard(
+                          context,
                           hive: hive,
                           onTap: () => Navigator.pushNamed(context, AppRoutes.hiveDetail, arguments: hive.id),
                         ),
                       ),
                   const SizedBox(height: 16),
-                  Text(AppStrings.latestAlert,
-                      style: AppTextStyles.h3c(context).copyWith(fontStyle: FontStyle.italic)),
+                  Text(AppStrings.latestAlert, style: AppTextStyles.h3c(context).copyWith(fontStyle: FontStyle.italic)),
                   const SizedBox(height: 10),
                   if (topInsight != null)
-                    InsightFeedCard(
+                    _insightCard(
+                      context,
                       insight: topInsight,
                       onTap: topInsight.relatedHiveId == null
                           ? null
@@ -260,6 +239,134 @@ class _OverviewBody extends StatelessWidget {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Widget _sparkline(List<YieldPointModel> points) {
+    const lineColor = Color(0xFF7C6FE0);
+    return SizedBox(
+      height: 90,
+      child: LineChart(
+        LineChartData(
+          gridData: const FlGridData(show: false),
+          titlesData: const FlTitlesData(show: false),
+          borderData: FlBorderData(show: false),
+          lineTouchData: const LineTouchData(enabled: false),
+          lineBarsData: [
+            LineChartBarData(
+              spots: [for (int i = 0; i < points.length; i++) FlSpot(i.toDouble(), points[i].valueKg)],
+              isCurved: true,
+              color: lineColor,
+              barWidth: 2.5,
+              dotData: const FlDotData(show: false),
+              belowBarData: BarAreaData(show: true, color: lineColor.withOpacity(0.18)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _statCard(BuildContext context, {required String value, required String label, required IconData icon}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
+      child: Column(
+        children: [
+          Icon(icon, color: AppColors.primary, size: 20),
+          const SizedBox(height: 8),
+          Text(value, style: AppTextStyles.h2c(context)),
+          const SizedBox(height: 2),
+          Text(label, style: AppTextStyles.captionc(context)),
+        ],
+      ),
+    );
+  }
+
+  Widget _fleetCard(BuildContext context, {required HiveModel hive, required VoidCallback onTap}) {
+    final label = hiveStatusLabel(hive.status);
+    final bg = AppColors.statusColor(label);
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+        decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16)),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text('Hive #${hive.id}', style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
+                      const SizedBox(width: 8),
+                      Text(hive.apiaryName, style: TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 12)),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(label, style: TextStyle(color: Colors.white.withOpacity(0.75), fontSize: 12)),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text('${hive.temperatureCelsius}C', style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700)),
+                const SizedBox(height: 2),
+                Text('${hive.humidityPercent}%', style: TextStyle(color: Colors.white.withOpacity(0.75), fontSize: 12)),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _insightCard(BuildContext context, {required InsightModel insight, VoidCallback? onTap}) {
+    final bg = AppColors.insightColor(insightTagLabel(insight.tag));
+    return InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(color: Colors.black.withOpacity(0.18), borderRadius: BorderRadius.circular(12)),
+              child: const Icon(Icons.bolt_rounded, color: Colors.white, size: 22),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                    decoration: BoxDecoration(color: Colors.white.withOpacity(0.18), borderRadius: BorderRadius.circular(20)),
+                    child: Text(
+                      insightTagLabel(insight.tag),
+                      style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.6),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(insight.title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 2),
+                  Text(insight.meta, style: TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 11)),
+                  const SizedBox(height: 8),
+                  Text(insight.description, style: TextStyle(color: Colors.white.withOpacity(0.85), fontSize: 12.5, height: 1.35)),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

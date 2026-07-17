@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-/// Maps to the four stat cards on the Overview screen.
 class OverviewStatsModel extends Equatable {
   final int totalHives;
   final int totalHivesDeltaThisMonth;

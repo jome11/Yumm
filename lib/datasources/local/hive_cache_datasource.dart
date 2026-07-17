@@ -1,16 +1,11 @@
 import 'dart:convert';
 
-// Aliased `hivedb` — this is the Hive *package* (local NoSQL DB),
-// unrelated to this app's beehive domain model.
 import 'package:hive_flutter/hive_flutter.dart' as hivedb;
 
 import 'package:yumm/models/hive_model.dart';
 import 'package:yumm/models/insight_model.dart';
 import 'package:yumm/models/overview_stats_model.dart';
 
-/// Local persistence for dashboard data, backed by the Hive package.
-/// Stored as JSON strings in a single box, so no code-generated
-/// type adapters are needed.
 class HiveCacheDatasource {
   static const _boxName = 'yumm_dashboard_cache';
 
@@ -18,7 +13,6 @@ class HiveCacheDatasource {
   static const _kHives = 'hives';
   static const _kInsights = 'insights';
 
-  /// Call once in main() before runApp, after hivedb.Hive.initFlutter().
   static Future<void> openBox() async {
     await hivedb.Hive.openBox<String>(_boxName);
   }

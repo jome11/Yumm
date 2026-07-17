@@ -16,15 +16,10 @@ import 'package:yumm/viewmodels/theme_cubit.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Local database (Hive package) init — separate from auth's shared_preferences.
   await hivedb.Hive.initFlutter();
   await HiveCacheDatasource.openBox();
 
   runApp(
-    // Every repository is built once here and handed down the widget
-    // tree with RepositoryProvider, so any screen below can grab one
-    // with `context.read<AuthRepository>()` etc. — no service locator
-    // needed.
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthRepository>(

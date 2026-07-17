@@ -1,4 +1,3 @@
-/// Form validation used by Login, Signup, and Deploy Hive.
 class Validators {
   Validators._();
 

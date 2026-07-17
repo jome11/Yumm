@@ -2,7 +2,6 @@ import 'package:yumm/models/hive_model.dart';
 import 'package:yumm/models/insight_model.dart';
 import 'package:yumm/models/overview_stats_model.dart';
 
-/// Mocked network layer mirroring yumm-hive.vercel.app/dashboard.
 class HiveRemoteDatasource {
   Future<OverviewStatsModel> getOverviewStats() async {
     await Future.delayed(const Duration(milliseconds: 700));

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-/// The four hive states: harvestReady, warning, optimal, routine.
 enum HiveStatus { harvestReady, warning, optimal, routine }
 
 HiveStatus hiveStatusFromString(String value) {
@@ -30,7 +29,7 @@ String hiveStatusLabel(HiveStatus status) {
 }
 
 class HiveModel extends Equatable {
-  final String id; // e.g. "02"
+  final String id;
   final String apiaryName;
   final HiveStatus status;
   final int colonyStrength;
@@ -65,7 +64,6 @@ class HiveModel extends Equatable {
   double get colonyStrengthRatio =>
       colonyCapacity == 0 ? 0 : colonyStrength / colonyCapacity;
 
-  /// Serializes to JSON — used by the local cache and a future real API.
   Map<String, dynamic> toJson() => {
         'id': id,
         'apiaryName': apiaryName,

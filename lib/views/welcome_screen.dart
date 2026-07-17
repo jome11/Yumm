@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/routes.dart';
 
-/// The marketing/landing screen shown before login.
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 

@@ -10,7 +10,6 @@ class YummApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ThemeCubit is provided once in main.dart, above this widget.
     return BlocBuilder<ThemeCubit, ThemeMode>(
       builder: (context, mode) {
         return MaterialApp(
@@ -26,8 +25,6 @@ class YummApp extends StatelessWidget {
     );
   }
 
-  /// Builds the light or dark ThemeData right here — one MaterialApp,
-  /// one place to see exactly what it looks like.
   ThemeData _buildTheme(Brightness brightness) {
     final isDark = brightness == Brightness.dark;
     final background = isDark ? AppColors.darkBackground : AppColors.lightBackground;
@@ -94,8 +91,6 @@ class YummApp extends StatelessWidget {
         ),
         hintStyle: TextStyle(color: textSecondary),
       ),
-      // Bottom nav is always dark chrome, regardless of theme mode —
-      // see DashboardShell, which builds its own nav bar directly.
       dividerColor: divider,
       switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.resolveWith(

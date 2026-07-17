@@ -4,8 +4,6 @@ import 'package:yumm/models/hive_model.dart';
 import 'package:yumm/models/insight_model.dart';
 import 'package:yumm/models/overview_stats_model.dart';
 
-/// Network-first, cache-fallback: cache each successful remote fetch,
-/// and fall back to the last cached copy if the network call throws.
 class HiveRepository {
   final HiveRemoteDatasource remoteDatasource;
   final HiveCacheDatasource cacheDatasource;

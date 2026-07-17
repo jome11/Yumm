@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yumm/constants.dart';
 
-/// Primary call-to-action button with a built-in loading state.
 class AppButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;

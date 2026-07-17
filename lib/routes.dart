@@ -11,7 +11,6 @@ import 'package:yumm/views/documentation_screen.dart';
 import 'package:yumm/views/splash_screen.dart';
 import 'package:yumm/models/hive_model.dart';
 
-/// Every route name the app uses — never hardcode a route string in a screen.
 class AppRoutes {
   AppRoutes._();
 
@@ -34,9 +33,6 @@ class AppRoutes {
   static const documentation = '/dashboard/settings/documentation';
 }
 
-/// Maps each route name above to the screen that should show. This
-/// is what MaterialApp's onGenerateRoute calls; everywhere else in
-/// the app just does Navigator.pushNamed(context, AppRoutes.xyz).
 class RouteGenerator {
   RouteGenerator._();
 
@@ -54,7 +50,6 @@ class RouteGenerator {
       case AppRoutes.signup:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
 
-      // These tabs live inside DashboardShell; kept as routes for deep links.
       case AppRoutes.dashboard:
       case AppRoutes.myHives:
       case AppRoutes.analytics:

@@ -30,7 +30,6 @@ class DeployHiveState {
   }
 }
 
-/// Single-purpose Cubit for the "Register New Hive" form.
 class DeployHiveCubit extends Cubit<DeployHiveState> {
   final HiveRepository hiveRepository;
 

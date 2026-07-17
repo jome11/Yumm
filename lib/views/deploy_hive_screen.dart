@@ -28,7 +28,6 @@ const _apiaryLocations = [
   'North Valley Orchard',
 ];
 
-/// Pops with `true` on success so MyHivesScreen knows to refresh.
 class DeployHiveScreen extends StatelessWidget {
   const DeployHiveScreen({super.key});
 

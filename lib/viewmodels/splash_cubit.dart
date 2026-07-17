@@ -8,7 +8,6 @@ class SplashState {
   const SplashState(this.status);
 }
 
-/// Cubit that decides where to route on cold start.
 class SplashCubit extends Cubit<SplashState> {
   final AuthRepository authRepository;
 

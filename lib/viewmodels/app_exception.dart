@@ -1,4 +1,3 @@
-/// Wraps any error into a friendly message for ViewModels to show.
 class AppException implements Exception {
   final String message;
   AppException(this.message);

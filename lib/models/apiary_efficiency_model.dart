@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class ApiaryEfficiencyModel extends Equatable {
   final String name;
   final double yieldKg;
-  final double ratio; // 0..1, relative efficiency bar fill
+  final double ratio;
 
   const ApiaryEfficiencyModel({
     required this.name,

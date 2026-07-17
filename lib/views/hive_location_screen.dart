@@ -5,7 +5,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:yumm/models/hive_model.dart';
 import 'package:yumm/constants.dart';
 
-/// Shows a single hive's location on an OpenStreetMap tile layer.
 class HiveLocationScreen extends StatelessWidget {
   final HiveModel hive;
   const HiveLocationScreen({super.key, required this.hive});
@@ -47,7 +46,6 @@ class HiveLocationScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // Required attribution per OpenStreetMap's tile usage policy.
                     RichAttributionWidget(
                       attributions: [
                         TextSourceAttribution('© OpenStreetMap contributors'),

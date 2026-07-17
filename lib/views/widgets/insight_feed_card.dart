@@ -13,7 +13,6 @@ IconData _iconFor(InsightTag tag) {
   }
 }
 
-/// Full-width colored card as shown on the "Intelligence" feed screen.
 class InsightFeedCard extends StatelessWidget {
   final InsightModel insight;
   final VoidCallback? onTap;

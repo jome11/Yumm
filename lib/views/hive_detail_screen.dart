@@ -12,7 +12,6 @@ import 'package:yumm/viewmodels/hive_detail_state.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/routes.dart';
 
-/// Pushed via Navigator.pushNamed with the hive's id as arguments.
 class HiveDetailScreen extends StatelessWidget {
   final String hiveId;
   const HiveDetailScreen({super.key, required this.hiveId});

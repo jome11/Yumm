@@ -1,45 +1,36 @@
 import 'package:flutter/material.dart';
 
-/// All of the app's colors, text styles, copy, and asset paths in
-/// one place — so no screen hardcodes a hex value or a string.
 
 class AppColors {
   AppColors._();
 
-  // Brand — same in both modes
-  static const Color primary = Color(0xFFF3A93B); // honey amber
+  static const Color primary = Color(0xFFF3A93B);
   static const Color primaryDark = Color(0xFFB9791E);
 
-  // Light mode surfaces
   static const Color lightBackground = Color(0xFFF1EEE6);
   static const Color lightSurface = Colors.white;
   static const Color lightTextPrimary = Color(0xFF1C1A16);
   static const Color lightTextSecondary = Color(0xFF7A756B);
   static const Color lightDivider = Color(0xFFE7E2D8);
 
-  // Dark mode surfaces
   static const Color darkBackground = Color(0xFF15130E);
   static const Color darkSurface = Color(0xFF201C14);
   static const Color darkTextPrimary = Color(0xFFF5F2EA);
   static const Color darkTextSecondary = Color(0xFF9C9686);
   static const Color darkDivider = Color(0xFF322C1F);
 
-  // Chrome that's always dark (bottom nav, login card, splash)
   static const Color chrome = Color(0xFF17150F);
 
-  // Hive status card colors — always-dark backgrounds regardless of theme.
-  static const Color statusHarvestReady = Color(0xFF544512); // olive/gold
-  static const Color statusWarning = Color(0xFF5B2323); // maroon/red
-  static const Color statusOptimal = Color(0xFF1B4332); // deep green
-  static const Color statusRoutine = Color(0xFF1B2B4A); // navy blue
+  static const Color statusHarvestReady = Color(0xFF544512);
+  static const Color statusWarning = Color(0xFF5B2323);
+  static const Color statusOptimal = Color(0xFF1B4332);
+  static const Color statusRoutine = Color(0xFF1B2B4A);
 
-  // Accent colors used for text/icons on top of status cards or chips
   static const Color accentGold = Color(0xFFE0B341);
   static const Color accentRed = Color(0xFFE06666);
   static const Color accentGreen = Color(0xFF4CAF7D);
   static const Color accentBlue = Color(0xFF5C8DE0);
 
-  // Insight tags on the Feed screen
   static const Color tagPriority = Color(0xFFC9A22B);
   static const Color tagWarning = Color(0xFFC0392B);
   static const Color tagRoutine = Color(0xFF2E7D5B);
@@ -81,7 +72,6 @@ class AppColors {
     }
   }
 
-  // ---- context-aware helpers so screens auto-switch with ThemeMode ----
   static bool isDark(BuildContext context) =>
       Theme.of(context).brightness == Brightness.dark;
 
@@ -101,8 +91,6 @@ class AppColors {
       isDark(context) ? darkDivider : lightDivider;
 }
 
-/// Static styles are theme-agnostic (weight/size only); use the
-/// context-aware helpers below when color must flip with the theme.
 class AppTextStyles {
   AppTextStyles._();
 
@@ -124,14 +112,12 @@ class AppTextStyles {
   static TextStyle statNumberc(BuildContext c) => statNumber.copyWith(color: AppColors.textPrimary(c));
 }
 
-/// Static copy used across the app.
 class AppStrings {
   AppStrings._();
 
   static const appName = 'Yumm';
   static const tagline = 'The Digital Apiary';
 
-  // Welcome / marketing screen
   static const welcomeHeadline1 = 'The';
   static const welcomeHeadline2 = 'Intelligence';
   static const welcomeHeadline3 = 'Behind  the';
@@ -144,7 +130,6 @@ class AppStrings {
   static const getStartedNow = 'Get Started Now';
   static const contactSales = 'Contact Sales';
 
-  // Auth
   static const login = 'Login';
   static const signup = 'Sign Up';
   static const email = 'Email';
@@ -161,7 +146,6 @@ class AppStrings {
   static const signIn = 'Sign In';
   static const newToApiary = 'New to the apiary?';
 
-  // Dashboard / bottom nav
   static const home = 'Home';
   static const overview = 'Overview';
   static const myHives = 'My Hives';
@@ -244,19 +228,14 @@ class AppStrings {
   static const model = 'MODEL';
 }
 
-/// Asset path constants, matching the exact filenames in /assets.
 class AppAssets {
   AppAssets._();
 
-  /// Hexagon honey-drip mark, transparent background.
   static const iconTransparent = 'assets/659135f7-fdf0-4ac9-90a4-8ef49ef1c858_1.png';
 
-  /// Hexagon honey-drip mark, pre-composited on amber (app icon/favicon).
   static const iconOnAmber = 'assets/Yumm_Favicon 1.png';
 
-  /// "Yumm" wordmark, transparent background, bubble lettering.
   static const wordmarkTransparent = 'assets/3bcb98cd-8569-493d-b791-7947e557b2d8_1.png';
 
-  /// "Yumm" wordmark, pre-composited on amber.
   static const wordmarkOnAmber = 'assets/Yumm 1.png';
 }

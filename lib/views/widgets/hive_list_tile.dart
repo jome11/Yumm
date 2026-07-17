@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:yumm/models/hive_model.dart';
 import 'package:yumm/constants.dart';
 
-/// Full-color status card used in the My Hives list, matching Figma.
 class HiveListTile extends StatelessWidget {
   final HiveModel hive;
   final VoidCallback onTap;

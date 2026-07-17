@@ -12,7 +12,7 @@ class MyHivesRequested extends MyHivesEvent {
 }
 
 class MyHivesFilterChanged extends MyHivesEvent {
-  final HiveStatus? status; // null = All
+  final HiveStatus? status;
   const MyHivesFilterChanged(this.status);
 
   @override

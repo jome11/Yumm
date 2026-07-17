@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:yumm/models/yield_point_model.dart';
 import 'package:yumm/constants.dart';
 
-/// Annotated line chart (gridlines + axis labels) for the Analytics screen.
 class YieldChart extends StatelessWidget {
   final List<YieldPointModel> points;
   const YieldChart({super.key, required this.points});

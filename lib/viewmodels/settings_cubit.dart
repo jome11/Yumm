@@ -30,7 +30,6 @@ class SettingsState {
   }
 }
 
-/// Local toggles only — dark mode itself lives in the app-wide ThemeCubit.
 class SettingsCubit extends Cubit<SettingsState> {
   final AuthRepository authRepository;
 

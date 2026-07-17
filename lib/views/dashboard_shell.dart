@@ -7,8 +7,6 @@ import 'package:yumm/views/settings_screen.dart';
 import 'overview_screen.dart';
 import 'package:yumm/constants.dart';
 
-/// Bottom-nav shell hosting the five tabs: Home / Hives / Analytics / Feed / Settings.
-/// The nav bar is always dark chrome, independent of the app's ThemeMode.
 class DashboardShell extends StatefulWidget {
   const DashboardShell({super.key});
 
