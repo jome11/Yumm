@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yumm/viewmodels/theme_cubit.dart';
-import 'package:yumm/repositories/auth_repository.dart';
 import 'package:yumm/viewmodels/settings_cubit.dart';
 import 'package:yumm/views/widgets/settings_tile.dart';
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
+import 'package:yumm/views/documentation_screen.dart';
+import 'package:yumm/views/login_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -14,7 +14,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SettingsCubit(authRepository: context.read<AuthRepository>())..loadUser(),
+      create: (context) => SettingsCubit()..loadUser(),
       child: const _SettingsBody(),
     );
   }
@@ -113,7 +113,7 @@ class _SettingsBody extends StatelessWidget {
                 SettingsTile(
                   title: AppStrings.documentation,
                   subtitle: AppStrings.documentationSubtitle,
-                  onTap: () => Navigator.pushNamed(context, AppRoutes.documentation),
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const DocumentationScreen())),
                 ),
                 SettingsTile(
                   title: AppStrings.emailSupport,
@@ -125,9 +125,13 @@ class _SettingsBody extends StatelessWidget {
                   width: double.infinity,
                   child: OutlinedButton.icon(
                     onPressed: () async {
-                      await context.read<AuthRepository>().logout();
+                      await context.read<SettingsCubit>().logout();
                       if (context.mounted) {
-                        Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (route) => false);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => const LoginScreen()),
+                          (route) => false,
+                        );
                       }
                     },
                     icon: const Icon(Icons.logout_rounded, color: AppColors.accentRed),

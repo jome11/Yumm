@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:yumm/dummy_data.dart';
 import 'package:yumm/models/user_model.dart';
-import 'package:yumm/repositories/auth_repository.dart';
 
 class SettingsState {
   final bool loading;
@@ -31,13 +33,10 @@ class SettingsState {
 }
 
 class SettingsCubit extends Cubit<SettingsState> {
-  final AuthRepository authRepository;
-
-  SettingsCubit({required this.authRepository}) : super(const SettingsState());
+  SettingsCubit() : super(const SettingsState());
 
   Future<void> loadUser() async {
-    final user = await authRepository.getCachedUser();
-    emit(state.copyWith(loading: false, user: user));
+    emit(state.copyWith(loading: false, user: dummyUser));
   }
 
   void toggleNotifications(bool value) {
@@ -46,5 +45,10 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void toggleHealthReports(bool value) {
     emit(state.copyWith(healthReportsEnabled: value));
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('is_logged_in', false);
   }
 }

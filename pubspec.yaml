@@ -10,32 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # State management (MVVM ViewModels)
   flutter_bloc: ^8.1.6
   equatable: ^2.1.0
-
-  # Local persistence (auth session, theme preference)
   shared_preferences: ^2.5.5
-
-  # Charts (Analytics screen, Home season-yield sparkline)
   fl_chart: ^0.68.0
-
-  # QR code rendering (Hive Detail screen)
   qr_flutter: ^4.1.0
-
-  # OpenStreetMap rendering (Hive Detail -> View Location)
   flutter_map: ^6.1.0
   latlong2: ^0.9.1
-
-  # Local database (Week 10 curriculum) — caches dashboard data so
-  # Home / My Hives / Feed survive app restarts and brief offline
-  # periods. Does not touch auth, which stays on shared_preferences.
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-
-  # Date/number formatting utilities
-  intl: ^0.19.0
-
   cupertino_icons: ^1.0.9
 
 dev_dependencies:
@@ -45,7 +26,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  # Brand assets (logo mark + wordmark) used on Splash, Welcome, and Login.
   assets:
     - assets/

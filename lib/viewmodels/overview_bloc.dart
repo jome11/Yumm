@@ -1,50 +1,32 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:yumm/repositories/analytics_repository.dart';
-import 'package:yumm/repositories/auth_repository.dart';
-import 'package:yumm/repositories/hive_repository.dart';
+import 'package:yumm/dummy_data.dart';
+import 'package:yumm/models/user_model.dart';
 import 'overview_event.dart';
 import 'overview_state.dart';
-import 'package:yumm/viewmodels/app_exception.dart';
 
 class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
-  final HiveRepository hiveRepository;
-  final AnalyticsRepository analyticsRepository;
-  final AuthRepository authRepository;
-
-  OverviewBloc({
-    required this.hiveRepository,
-    required this.analyticsRepository,
-    required this.authRepository,
-  }) : super(const OverviewState()) {
+  OverviewBloc() : super(const OverviewState()) {
     on<OverviewRequested>(_onRequested);
     on<OverviewRefreshed>(_onRequested);
   }
 
-  Future<void> _onRequested(
-    OverviewEvent event,
-    Emitter<OverviewState> emit,
-  ) async {
+  Future<void> _onRequested(OverviewEvent event, Emitter<OverviewState> emit) async {
     emit(state.copyWith(status: OverviewStatus.loading));
-    try {
-      final stats = await hiveRepository.getOverviewStats();
-      final hives = await hiveRepository.getHives();
-      final insights = await hiveRepository.getInsights();
-      final yieldHistory = await analyticsRepository.getYieldHistory();
-      final user = await authRepository.getCachedUser();
-      emit(state.copyWith(
-        status: OverviewStatus.success,
-        stats: stats,
-        hives: hives,
-        insights: insights,
-        yieldHistory: yieldHistory,
-        user: user,
-      ));
-    } catch (e) {
-      emit(state.copyWith(
-        status: OverviewStatus.failure,
-        errorMessage: mapErrorToAppException(e).message,
-      ));
-    }
+    await Future.delayed(const Duration(milliseconds: 700));
+
+    final prefs = await SharedPreferences.getInstance();
+    final loggedIn = prefs.getBool('is_logged_in') ?? false;
+    final UserModel? user = loggedIn ? dummyUser : null;
+
+    emit(state.copyWith(
+      status: OverviewStatus.success,
+      stats: dummyOverviewStats,
+      hives: dummyHives,
+      insights: dummyInsights,
+      yieldHistory: dummyYieldHistory,
+      user: user,
+    ));
   }
 }

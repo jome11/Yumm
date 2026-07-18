@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yumm/views/widgets/error_view.dart';
 import 'package:yumm/views/widgets/loading_indicator.dart';
-import 'package:yumm/repositories/hive_repository.dart';
 import 'package:yumm/viewmodels/feed_bloc.dart';
 import 'package:yumm/viewmodels/feed_event.dart';
 import 'package:yumm/viewmodels/feed_state.dart';
 import 'package:yumm/views/widgets/insight_feed_card.dart';
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
+import 'package:yumm/views/hive_detail_screen.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
@@ -17,7 +16,7 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FeedBloc(hiveRepository: context.read<HiveRepository>())..add(const FeedRequested()),
+      create: (context) => FeedBloc()..add(const FeedRequested()),
       child: const _FeedBody(),
     );
   }
@@ -69,10 +68,11 @@ class _FeedBodyState extends State<_FeedBody> {
                               insight: insight,
                               onTap: insight.relatedHiveId == null
                                   ? null
-                                  : () => Navigator.pushNamed(
+                                  : () => Navigator.push(
                                         context,
-                                        AppRoutes.hiveDetail,
-                                        arguments: insight.relatedHiveId,
+                                        MaterialPageRoute(
+                                          builder: (context) => HiveDetailScreen(hiveId: insight.relatedHiveId!),
+                                        ),
                                       ),
                             ))
                         .toList(),

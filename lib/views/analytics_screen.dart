@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yumm/views/widgets/error_view.dart';
 import 'package:yumm/views/widgets/loading_indicator.dart';
-import 'package:yumm/repositories/analytics_repository.dart';
 import 'package:yumm/viewmodels/analytics_bloc.dart';
 import 'package:yumm/viewmodels/analytics_event.dart';
 import 'package:yumm/viewmodels/analytics_state.dart';
@@ -16,7 +15,7 @@ class AnalyticsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AnalyticsBloc(analyticsRepository: context.read<AnalyticsRepository>())..add(const AnalyticsRequested()),
+      create: (context) => AnalyticsBloc()..add(const AnalyticsRequested()),
       child: const _AnalyticsBody(),
     );
   }

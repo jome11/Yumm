@@ -5,12 +5,11 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:yumm/views/widgets/error_view.dart';
 import 'package:yumm/views/widgets/loading_indicator.dart';
 import 'package:yumm/models/hive_model.dart';
-import 'package:yumm/repositories/hive_repository.dart';
 import 'package:yumm/viewmodels/hive_detail_bloc.dart';
 import 'package:yumm/viewmodels/hive_detail_event.dart';
 import 'package:yumm/viewmodels/hive_detail_state.dart';
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
+import 'package:yumm/views/hive_location_screen.dart';
 
 class HiveDetailScreen extends StatelessWidget {
   final String hiveId;
@@ -19,7 +18,7 @@ class HiveDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HiveDetailBloc(hiveRepository: context.read<HiveRepository>())..add(HiveDetailRequested(hiveId)),
+      create: (context) => HiveDetailBloc()..add(HiveDetailRequested(hiveId)),
       child: _HiveDetailBody(hiveId: hiveId),
     );
   }
@@ -184,7 +183,7 @@ class _HiveDetailBody extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
-                  onPressed: () => Navigator.pushNamed(context, AppRoutes.hiveLocation, arguments: hive),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HiveLocationScreen(hive: hive))),
                   icon: Icon(Icons.location_on_outlined, color: AppColors.textPrimary(context)),
                   label: Text(AppStrings.viewLocation, style: TextStyle(color: AppColors.textPrimary(context), fontWeight: FontWeight.w600)),
                   style: OutlinedButton.styleFrom(

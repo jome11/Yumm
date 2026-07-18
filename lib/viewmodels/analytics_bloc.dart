@@ -1,25 +1,21 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:yumm/repositories/analytics_repository.dart';
+import 'package:yumm/dummy_data.dart';
 import 'analytics_event.dart';
 import 'analytics_state.dart';
-import 'package:yumm/viewmodels/app_exception.dart';
 
 class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
-  final AnalyticsRepository analyticsRepository;
-
-  AnalyticsBloc({required this.analyticsRepository}) : super(const AnalyticsState()) {
+  AnalyticsBloc() : super(const AnalyticsState()) {
     on<AnalyticsRequested>(_onRequested);
   }
 
   Future<void> _onRequested(AnalyticsRequested event, Emitter<AnalyticsState> emit) async {
     emit(state.copyWith(status: AnalyticsStatus.loading));
-    try {
-      final history = await analyticsRepository.getYieldHistory();
-      final efficiency = await analyticsRepository.getApiaryEfficiency();
-      emit(state.copyWith(status: AnalyticsStatus.success, yieldHistory: history, efficiency: efficiency));
-    } catch (e) {
-      emit(state.copyWith(status: AnalyticsStatus.failure, errorMessage: mapErrorToAppException(e).message));
-    }
+    await Future.delayed(const Duration(milliseconds: 500));
+    emit(state.copyWith(
+      status: AnalyticsStatus.success,
+      yieldHistory: dummyYieldHistory,
+      efficiency: dummyApiaryEfficiency,
+    ));
   }
 }

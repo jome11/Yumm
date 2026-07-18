@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:yumm/repositories/auth_repository.dart';
 import 'package:yumm/viewmodels/login_bloc.dart';
 import 'package:yumm/viewmodels/login_event.dart';
 import 'package:yumm/viewmodels/login_state.dart';
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
+import 'package:yumm/views/dashboard_shell.dart';
+import 'package:yumm/views/signup_screen.dart';
 import 'package:yumm/views/validators.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(authRepository: context.read<AuthRepository>()),
+      create: (context) => LoginBloc(),
       child: const _LoginView(),
     );
   }
@@ -64,7 +64,7 @@ class _LoginViewState extends State<_LoginView> {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.status == LoginStatus.success) {
-            Navigator.pushNamedAndRemoveUntil(context, AppRoutes.dashboard, (route) => false);
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardShell()), (route) => false);
           } else if (state.status == LoginStatus.failure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.errorMessage ?? 'Login failed')),
@@ -201,7 +201,7 @@ class _LoginViewState extends State<_LoginView> {
                         const Divider(color: Colors.white12),
                         const SizedBox(height: 12),
                         TextButton(
-                          onPressed: () => Navigator.pushNamed(context, AppRoutes.signup),
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignupScreen())),
                           child: RichText(
                             text: const TextSpan(
                               style: TextStyle(color: Colors.white60, fontSize: 13),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
+import 'package:yumm/views/login_screen.dart';
+import 'package:yumm/views/signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -30,7 +31,7 @@ class WelcomeScreen extends StatelessWidget {
                     ],
                   ),
                   OutlinedButton(
-                    onPressed: () => Navigator.pushNamed(context, AppRoutes.login),
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen())),
                     style: OutlinedButton.styleFrom(
                       backgroundColor: AppColors.chrome,
                       foregroundColor: Colors.white,
@@ -80,7 +81,7 @@ class WelcomeScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () => Navigator.pushNamed(context, AppRoutes.signup),
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignupScreen())),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
                           minimumSize: const Size.fromHeight(52),

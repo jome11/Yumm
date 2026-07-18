@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yumm/viewmodels/theme_cubit.dart';
-import 'package:yumm/repositories/analytics_repository.dart';
-import 'package:yumm/repositories/auth_repository.dart';
-import 'package:yumm/repositories/hive_repository.dart';
 import 'package:yumm/viewmodels/overview_bloc.dart';
 import 'package:yumm/viewmodels/overview_event.dart';
 import 'package:yumm/viewmodels/overview_state.dart';
@@ -13,7 +10,8 @@ import 'package:yumm/models/hive_model.dart';
 import 'package:yumm/models/insight_model.dart';
 import 'package:yumm/models/yield_point_model.dart';
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
+import 'package:yumm/views/hive_detail_screen.dart';
+import 'package:yumm/views/my_hives_screen.dart';
 
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
@@ -21,11 +19,7 @@ class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OverviewBloc(
-        hiveRepository: context.read<HiveRepository>(),
-        analyticsRepository: context.read<AnalyticsRepository>(),
-        authRepository: context.read<AuthRepository>(),
-      )..add(const OverviewRequested()),
+      create: (context) => OverviewBloc()..add(const OverviewRequested()),
       child: const _OverviewBody(),
     );
   }
@@ -63,7 +57,7 @@ class _OverviewBody extends StatelessWidget {
             }
 
             final stats = state.stats!;
-            final userName = (state.user?.name ?? 'Yoseph').split(' ').first;
+            final userName = (state.user?.name ?? 'Natnael').split(' ').first;
             final topInsight = state.insights.isNotEmpty ? state.insights.first : null;
             final alertCount = state.hives.where((h) => h.status == HiveStatus.warning).length;
 
@@ -205,7 +199,7 @@ class _OverviewBody extends StatelessWidget {
                     children: [
                       Text(AppStrings.fleetStatus, style: AppTextStyles.h3c(context).copyWith(fontStyle: FontStyle.italic)),
                       TextButton(
-                        onPressed: () => Navigator.pushNamed(context, AppRoutes.myHives),
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHivesScreen())),
                         child: Row(
                           children: [
                             Text(AppStrings.viewAll, style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
@@ -221,7 +215,7 @@ class _OverviewBody extends StatelessWidget {
                         (hive) => _fleetCard(
                           context,
                           hive: hive,
-                          onTap: () => Navigator.pushNamed(context, AppRoutes.hiveDetail, arguments: hive.id),
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HiveDetailScreen(hiveId: hive.id))),
                         ),
                       ),
                   const SizedBox(height: 16),
@@ -233,7 +227,7 @@ class _OverviewBody extends StatelessWidget {
                       insight: topInsight,
                       onTap: topInsight.relatedHiveId == null
                           ? null
-                          : () => Navigator.pushNamed(context, AppRoutes.hiveDetail, arguments: topInsight.relatedHiveId),
+                          : () => Navigator.push(context, MaterialPageRoute(builder: (context) => HiveDetailScreen(hiveId: topInsight.relatedHiveId!))),
                     ),
                 ],
               ),

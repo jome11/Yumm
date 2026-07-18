@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumm/repositories/auth_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum SplashStatus { loading, authenticated, unauthenticated }
 
@@ -9,14 +9,12 @@ class SplashState {
 }
 
 class SplashCubit extends Cubit<SplashState> {
-  final AuthRepository authRepository;
-
-  SplashCubit({required this.authRepository})
-      : super(const SplashState(SplashStatus.loading));
+  SplashCubit() : super(const SplashState(SplashStatus.loading));
 
   Future<void> checkAuthStatus() async {
     await Future.delayed(const Duration(milliseconds: 1200));
-    final loggedIn = await authRepository.isLoggedIn();
+    final prefs = await SharedPreferences.getInstance();
+    final loggedIn = prefs.getBool('is_logged_in') ?? false;
     emit(SplashState(
       loggedIn ? SplashStatus.authenticated : SplashStatus.unauthenticated,
     ));

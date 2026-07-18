@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:yumm/dummy_data.dart';
 import 'package:yumm/models/hive_model.dart';
-import 'package:yumm/repositories/hive_repository.dart';
-import 'package:yumm/viewmodels/app_exception.dart';
 
 enum DeployHiveStatus { initial, loading, success, failure }
 
@@ -31,10 +30,7 @@ class DeployHiveState {
 }
 
 class DeployHiveCubit extends Cubit<DeployHiveState> {
-  final HiveRepository hiveRepository;
-
-  DeployHiveCubit({required this.hiveRepository})
-      : super(const DeployHiveState());
+  DeployHiveCubit() : super(const DeployHiveState());
 
   Future<void> deploy({
     required String hiveName,
@@ -42,21 +38,22 @@ class DeployHiveCubit extends Cubit<DeployHiveState> {
     required String hiveType,
   }) async {
     emit(state.copyWith(status: DeployHiveStatus.loading));
-    try {
-      final hive = await hiveRepository.deployHive(
-        hiveName: hiveName,
-        apiaryLocation: apiaryLocation,
-        hiveType: hiveType,
-      );
-      emit(state.copyWith(
-        status: DeployHiveStatus.success,
-        deployedHive: hive,
-      ));
-    } catch (e) {
-      emit(state.copyWith(
-        status: DeployHiveStatus.failure,
-        errorMessage: mapErrorToAppException(e).message,
-      ));
-    }
+    await Future.delayed(const Duration(milliseconds: 900));
+
+    final newHive = HiveModel(
+      id: (dummyHives.length + 1).toString().padLeft(2, '0'),
+      apiaryName: apiaryLocation,
+      status: HiveStatus.optimal,
+      colonyStrength: 0,
+      colonyCapacity: 55000,
+      temperatureCelsius: 0,
+      humidityPercent: 0,
+      weightKg: 0,
+      hiveModel: hiveType,
+    );
+
+    dummyHives.add(newHive);
+
+    emit(state.copyWith(status: DeployHiveStatus.success, deployedHive: newHive));
   }
 }

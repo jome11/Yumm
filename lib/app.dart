@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
 import 'package:yumm/viewmodels/theme_cubit.dart';
+import 'package:yumm/views/splash_screen.dart';
 
 class YummApp extends StatelessWidget {
   const YummApp({super.key});
@@ -18,8 +18,7 @@ class YummApp extends StatelessWidget {
           theme: _buildTheme(Brightness.light),
           darkTheme: _buildTheme(Brightness.dark),
           themeMode: mode,
-          initialRoute: AppRoutes.splash,
-          onGenerateRoute: RouteGenerator.generateRoute,
+          home: const SplashScreen(),
         );
       },
     );

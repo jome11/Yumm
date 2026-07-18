@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:yumm/repositories/hive_repository.dart';
 import 'package:yumm/viewmodels/deploy_hive_cubit.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/views/validators.dart';
@@ -34,7 +33,7 @@ class DeployHiveScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DeployHiveCubit(hiveRepository: context.read<HiveRepository>()),
+      create: (context) => DeployHiveCubit(),
       child: const _DeployHiveBody(),
     );
   }

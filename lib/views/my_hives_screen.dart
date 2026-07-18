@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yumm/views/widgets/error_view.dart';
 import 'package:yumm/views/widgets/loading_indicator.dart';
-import 'package:yumm/repositories/hive_repository.dart';
 import 'package:yumm/viewmodels/my_hives_bloc.dart';
 import 'package:yumm/viewmodels/my_hives_event.dart';
 import 'package:yumm/viewmodels/my_hives_state.dart';
 import 'package:yumm/views/widgets/hive_filter_sheet.dart';
 import 'package:yumm/views/widgets/hive_list_tile.dart';
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
+import 'package:yumm/views/deploy_hive_screen.dart';
+import 'package:yumm/views/hive_detail_screen.dart';
 
 class MyHivesScreen extends StatelessWidget {
   const MyHivesScreen({super.key});
@@ -18,7 +18,7 @@ class MyHivesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MyHivesBloc(hiveRepository: context.read<HiveRepository>())..add(const MyHivesRequested()),
+      create: (context) => MyHivesBloc()..add(const MyHivesRequested()),
       child: const _MyHivesBody(),
     );
   }
@@ -58,7 +58,7 @@ class _MyHivesBodyState extends State<_MyHivesBody> {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: () async {
-                    final deployed = await Navigator.pushNamed(context, AppRoutes.deployHive);
+                    final deployed = await Navigator.push(context, MaterialPageRoute(builder: (context) => const DeployHiveScreen()));
                     if (deployed == true && context.mounted) {
                       context.read<MyHivesBloc>().add(const MyHivesRequested());
                     }
@@ -156,7 +156,7 @@ class _MyHivesBodyState extends State<_MyHivesBody> {
                           final hive = hives[i];
                           return HiveListTile(
                             hive: hive,
-                            onTap: () => Navigator.pushNamed(context, AppRoutes.hiveDetail, arguments: hive.id),
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HiveDetailScreen(hiveId: hive.id))),
                           );
                         },
                       ),

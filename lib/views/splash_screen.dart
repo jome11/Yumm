@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:yumm/repositories/auth_repository.dart';
 import 'package:yumm/viewmodels/splash_cubit.dart';
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
+import 'package:yumm/views/dashboard_shell.dart';
+import 'package:yumm/views/welcome_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -12,14 +12,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SplashCubit(authRepository: context.read<AuthRepository>())
-        ..checkAuthStatus(),
+      create: (context) => SplashCubit()..checkAuthStatus(),
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state.status == SplashStatus.authenticated) {
-            Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardShell()));
           } else if (state.status == SplashStatus.unauthenticated) {
-            Navigator.pushReplacementNamed(context, AppRoutes.welcome);
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
           }
         },
         child: const _SplashBody(),

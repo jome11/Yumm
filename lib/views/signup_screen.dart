@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yumm/views/widgets/app_button.dart';
-import 'package:yumm/repositories/auth_repository.dart';
 import 'package:yumm/viewmodels/signup_bloc.dart';
 import 'package:yumm/viewmodels/signup_event.dart';
 import 'package:yumm/viewmodels/signup_state.dart';
 import 'package:yumm/views/widgets/auth_form_field.dart';
 import 'package:yumm/constants.dart';
-import 'package:yumm/routes.dart';
+import 'package:yumm/views/dashboard_shell.dart';
 import 'package:yumm/views/validators.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -17,7 +16,7 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignupBloc(authRepository: context.read<AuthRepository>()),
+      create: (context) => SignupBloc(),
       child: const _SignupView(),
     );
   }
@@ -55,9 +54,9 @@ class _SignupViewState extends State<_SignupView> {
       body: BlocListener<SignupBloc, SignupState>(
         listener: (context, state) {
           if (state.status == SignupStatus.success) {
-            Navigator.pushNamedAndRemoveUntil(
+            Navigator.pushAndRemoveUntil(
               context,
-              AppRoutes.dashboard,
+              MaterialPageRoute(builder: (context) => const DashboardShell()),
               (route) => false,
             );
           } else if (state.status == SignupStatus.failure) {
