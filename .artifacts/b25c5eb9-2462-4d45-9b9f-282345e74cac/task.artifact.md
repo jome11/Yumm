@@ -1,4 +1,4 @@
-- [x] Create `lib/views/widgets/hex_pattern_card.dart`
-- [x] Update `lib/views/overview_screen.dart` (Season Yield card)
-- [x] Update `lib/views/analytics_screen.dart` (Total Yield card)
-- [ ] Verify build and appearance
+- [x] Update `_fleetCard` in `lib/views/overview_screen.dart` with new styling and health percentage.
+- [x] Add "Feed >" link next to "Latest Alert" in `lib/views/overview_screen.dart`.
+- [x] Update `HiveListTile` in `lib/views/widgets/hive_list_tile.dart` with new styling and dot indicator.
+- [ ] Verify changes in both Light and Dark themes.

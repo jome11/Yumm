@@ -10,6 +10,7 @@ import 'package:yumm/models/hive_model.dart';
 import 'package:yumm/models/insight_model.dart';
 import 'package:yumm/models/yield_point_model.dart';
 import 'package:yumm/constants.dart';
+import 'package:yumm/views/dashboard_shell.dart';
 import 'package:yumm/views/hive_detail_screen.dart';
 import 'package:yumm/views/my_hives_screen.dart';
 import 'package:yumm/views/widgets/glass_card.dart';
@@ -188,11 +189,11 @@ class _OverviewBody extends StatelessWidget {
                   const SizedBox(height: 14),
                   Row(
                     children: [
-                      Expanded(child: _statCard(context, value: '${stats.totalHives}', label: 'HIVES', icon: Icons.hexagon_outlined)),
+                      Expanded(child: _statCard(context, value: '${stats.totalHives}', label: 'HIVES', icon: Icons.hexagon_outlined, iconColor: const Color(0xFF00A6F4))),
                       const SizedBox(width: 10),
-                      Expanded(child: _statCard(context, value: '${stats.ambientTempCelsius}c', label: 'TEMP', icon: Icons.thermostat_rounded)),
+                      Expanded(child: _statCard(context, value: '${stats.ambientTempCelsius}c', label: 'TEMP', icon: Icons.thermostat_rounded, iconColor: const Color(0xFFFE9A00))),
                       const SizedBox(width: 10),
-                      Expanded(child: _statCard(context, value: '$alertCount', label: 'ALERTS', icon: Icons.notifications_none_rounded)),
+                      Expanded(child: _statCard(context, value: '$alertCount', label: 'ALERTS', icon: Icons.notifications_none_rounded, iconColor: const Color(0xFFFB2C36))),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -221,7 +222,25 @@ class _OverviewBody extends StatelessWidget {
                         ),
                       ),
                   const SizedBox(height: 16),
-                  Text(AppStrings.latestAlert, style: AppTextStyles.h3c(context).copyWith(fontStyle: FontStyle.italic)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(AppStrings.latestAlert, style: AppTextStyles.h3c(context).copyWith(fontStyle: FontStyle.italic)),
+                      TextButton(
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const DashboardShell()),
+                        ),
+                        child: Row(
+                          children: [
+                            const Text(AppStrings.feed, style: TextStyle(color: AppColors.primary, fontSize: 13, fontWeight: FontWeight.w600)),
+                            const SizedBox(width: 2),
+                            const Icon(Icons.arrow_forward_rounded, size: 14, color: AppColors.primary),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 10),
                   if (topInsight != null)
                     _insightCard(
@@ -265,13 +284,13 @@ class _OverviewBody extends StatelessWidget {
     );
   }
 
-  Widget _statCard(BuildContext context, {required String value, required String label, required IconData icon}) {
+  Widget _statCard(BuildContext context, {required String value, required String label, required IconData icon, required Color iconColor}) {
     return GlassCard(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       borderRadius: 18,
       child: Column(
         children: [
-          Icon(icon, color: AppColors.primary, size: 20),
+          Icon(icon, color: iconColor, size: 20),
           const SizedBox(height: 8),
           Text(value, style: AppTextStyles.h2c(context)),
           const SizedBox(height: 2),
@@ -283,38 +302,51 @@ class _OverviewBody extends StatelessWidget {
 
   Widget _fleetCard(BuildContext context, {required HiveModel hive, required VoidCallback onTap}) {
     final label = hiveStatusLabel(hive.status);
-    final bg = AppColors.statusColor(label);
+    final accent = AppColors.statusAccent(label);
+
     return InkWell(
       borderRadius: BorderRadius.circular(16),
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-        decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16)),
+        decoration: BoxDecoration(
+          color: accent.withOpacity(0.12),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: accent.withOpacity(0.4)),
+        ),
         child: Row(
           children: [
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+            ),
+            const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      Text('Hive #${hive.id}', style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
+                      Text('Hive #${hive.id}',
+                          style: TextStyle(color: AppColors.textPrimary(context), fontSize: 15, fontWeight: FontWeight.w700)),
                       const SizedBox(width: 8),
-                      Text(hive.apiaryName, style: TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 12)),
+                      Text(hive.apiaryName, style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12)),
                     ],
                   ),
                   const SizedBox(height: 4),
-                  Text(label, style: TextStyle(color: Colors.white.withOpacity(0.75), fontSize: 12)),
+                  Text(label, style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12)),
                 ],
               ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('${hive.temperatureCelsius}C', style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700)),
+                Text('${hive.temperatureCelsius}°C',
+                    style: TextStyle(color: AppColors.textPrimary(context), fontSize: 14, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
-                Text('${hive.humidityPercent}%', style: TextStyle(color: Colors.white.withOpacity(0.75), fontSize: 12)),
+                Text('${hive.healthPercent}%', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12)),
               ],
             ),
           ],

@@ -23,6 +23,7 @@ class GlassCard extends StatelessWidget {
     this.blurStrength = 16,
     this.width,
     this.margin,
+    this.tintColor,
   });
 
   final Widget child;
@@ -32,15 +33,21 @@ class GlassCard extends StatelessWidget {
   final double? width;
   final EdgeInsetsGeometry? margin;
 
+  // Optional override for the glass tint - pass a hive's status color
+  // here to make the card read as "belonging to" that status instead of
+  // the default neutral white glass.
+  final Color? tintColor;
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final base = tintColor ?? Colors.white;
 
-    // A light, mostly-see-through tint. White works as the glass tint in
-    // both themes - just less of it in dark mode, so the glass doesn't
-    // wash out the dark background.
-    final tint = isDark ? Colors.white.withOpacity(0.08) : Colors.white.withOpacity(0.35);
-    final edgeHighlight = isDark ? Colors.white.withOpacity(0.18) : Colors.white.withOpacity(0.6);
+    // A light, mostly-see-through tint. When tintColor is null this is
+    // just white (the original neutral glass look) - less of it in dark
+    // mode so it doesn't wash out the dark background.
+    final tint = isDark ? base.withOpacity(tintColor != null ? 0.20 : 0.08) : base.withOpacity(tintColor != null ? 0.35 : 0.35);
+    final edgeHighlight = isDark ? base.withOpacity(tintColor != null ? 0.4 : 0.18) : base.withOpacity(tintColor != null ? 0.55 : 0.6);
 
     // margin has to live outside the blur/clip - otherwise the margin
     // area would get clipped and blurred along with the card itself.

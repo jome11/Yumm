@@ -11,7 +11,7 @@ class HiveListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = hiveStatusLabel(hive.status);
-    final bg = AppColors.statusColor(label);
+    final accent = AppColors.statusAccent(label);
 
     return InkWell(
       borderRadius: BorderRadius.circular(18),
@@ -19,28 +19,44 @@ class HiveListTile extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 14),
         padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(18)),
+        decoration: BoxDecoration(
+          color: accent.withOpacity(0.12),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: accent.withOpacity(0.4)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Hive #${hive.id}',
-                    style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800)),
-                Text(hive.apiaryName, style: TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 12)),
+                Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Hive #${hive.id}',
+                          style: TextStyle(color: AppColors.textPrimary(context), fontSize: 18, fontWeight: FontWeight.w800)),
+                      Text(hive.apiaryName, style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12)),
+                    ],
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 6),
             Row(
               children: [
                 Text('${hive.temperatureCelsius}',
-                    style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)),
-                Text('C', style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 13)),
+                    style: TextStyle(color: AppColors.textPrimary(context), fontSize: 16, fontWeight: FontWeight.w800)),
+                Text('C', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
                 const SizedBox(width: 10),
-                Text('${hive.humidityPercent}% RH', style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 13)),
+                Text('${hive.humidityPercent}% RH', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
                 const SizedBox(width: 10),
-                Text('${hive.weightKg}Kg', style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 13)),
+                Text('${hive.weightKg}Kg', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
               ],
             ),
             const SizedBox(height: 14),
@@ -49,16 +65,16 @@ class HiveListTile extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: (hive.healthPercent / 100).clamp(0, 1),
                 minHeight: 5,
-                backgroundColor: Colors.white.withOpacity(0.2),
-                color: Colors.white,
+                backgroundColor: accent.withOpacity(0.2),
+                color: accent,
               ),
             ),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(label, style: TextStyle(color: Colors.white.withOpacity(0.75), fontSize: 12)),
-                Text('${hive.healthPercent}%', style: TextStyle(color: Colors.white.withOpacity(0.75), fontSize: 12)),
+                Text(label, style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12)),
+                Text('${hive.healthPercent}%', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12)),
               ],
             ),
           ],

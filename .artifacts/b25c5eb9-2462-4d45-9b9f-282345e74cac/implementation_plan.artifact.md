@@ -1,37 +1,34 @@
-# Add Honeycomb-Textured Cards
+# Fix Fleet Status Card Styling
 
-The goal is to replace the current `GlassCard` (frosted glass) hero panels with a new `HexPatternCard` that features a solid background and a subtle honeycomb texture watermark, as seen in the app's reference screenshots.
+The goal is to update the styling of Fleet Status cards in the Overview screen and the My Hives screen to be more theme-aware and visually subtle.
+
+## User Review Required
+
+> [!NOTE]
+> The cards will transition from solid, bold background colors to a subtle tint with a colored dot indicator. This will significantly improve readability in light mode.
 
 ## Proposed Changes
 
-### New Widget
+### [MODIFY] [overview_screen.dart](file:///C:/Users/PAVILION/Desktop/yumm/lib/views/overview_screen.dart)
+- Update `_fleetCard` widget:
+    - Use `AppColors.statusAccent(label).withOpacity(0.12)` for background.
+    - Use `AppColors.statusAccent(label).withOpacity(0.4)` for border.
+    - Add a colored circle indicator before the hive name.
+    - Replace hardcoded `Colors.white` with `AppColors.textPrimary(context)` and `AppColors.textSecondary(context)`.
+    - Change right-side percentage from `humidityPercent` to `healthPercent`.
+- Add a "Feed >" link next to the "Latest Alert" section title.
 
-#### [NEW] [hex_pattern_card.dart](file:///C:/Users/PAVILION/Desktop/yumm/lib/views/widgets/hex_pattern_card.dart)
-- Create a new file `lib/views/widgets/hex_pattern_card.dart` and paste the content from `C:/Users/PAVILION/Documents/hex/hex-card-files/hex_pattern_card.dart`.
-- This widget uses a `CustomPaint` to draw the honeycomb pattern and a `ShaderMask` to fade it out.
-
-### Apply to Hero Cards
-
-#### [MODIFY] [overview_screen.dart](file:///C:/Users/PAVILION/Desktop/yumm/lib/views/overview_screen.dart)
-- Replace the `GlassCard` used for the **Season Yield** card with `HexPatternCard`.
-- Keep the `borderRadius` at `22` and `padding` at `20`.
-
-#### [MODIFY] [analytics_screen.dart](file:///C:/Users/PAVILION/Desktop/yumm/lib/views/analytics_screen.dart)
-- Replace the `GlassCard` used for the **Total Yield** hero card with `HexPatternCard`.
-- Keep the `borderRadius` at `20` and `padding` at `20`.
-
-### UI Components to Maintain
-
-As per the instructions, we will **NOT** modify:
-- Small stat boxes (Hives / Temp / Alerts).
-- Status-colored rows or cards (Fleet Status, Hive Detail status cards).
-- Insights cards (which have meaningful background colors).
-- Settings tiles (which remain glass-style or standard).
+### [MODIFY] [hive_list_tile.dart](file:///C:/Users/PAVILION/Desktop/yumm/lib/views/widgets/hive_list_tile.dart)
+- Update the card decoration:
+    - Use `AppColors.statusAccent(label).withOpacity(0.12)` for background.
+    - Use `AppColors.statusAccent(label).withOpacity(0.4)` for border.
+- Add a colored circle indicator before the hive name.
+- Replace hardcoded `Colors.white` with theme-aware text colors.
+- Ensure the progress bar (`LinearProgressIndicator`) uses status accent colors.
 
 ## Verification Plan
 
 ### Manual Verification
-- **Overview Screen**: Verify that the "Season Yield" card now has a subtle honeycomb pattern in the top-left corner that fades out.
-- **Analytics Screen**: Verify that the "Total Yield" card also features the honeycomb texture.
-- **Theming**: Check both Light and Dark themes. The pattern lines should adjust their color to remain subtle and integrated with the theme.
-- **Consistency**: Ensure other UI elements (like the glass-style settings tiles) are not affected.
+- **Overview Screen**: Verify the 3-item fleet preview shows the new tinted cards with dot indicators and the "Feed >" link.
+- **My Hives Screen**: Verify the full list of hives uses the updated `HiveListTile` styling.
+- **Theming**: Toggle between Light and Dark modes to ensure text is legible and the tint looks good on both backgrounds.

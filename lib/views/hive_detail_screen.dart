@@ -97,23 +97,24 @@ class _HiveDetailBody extends StatelessWidget {
               const SizedBox(height: 14),
               Row(
                 children: [
-                  Expanded(child: _InfoBox(label: 'Temp', value: '${hive.temperatureCelsius}C')),
+                  Expanded(child: _InfoBox(label: 'Temp', value: '${hive.temperatureCelsius}C', tintColor: accent)),
                   const SizedBox(width: 12),
-                  Expanded(child: _InfoBox(label: 'Humidity', value: '${hive.humidityPercent}%')),
+                  Expanded(child: _InfoBox(label: 'Humidity', value: '${hive.humidityPercent}%', tintColor: accent)),
                 ],
               ),
               const SizedBox(height: 12),
               Row(
                 children: [
-                  Expanded(child: _InfoBox(label: 'Activity', value: hive.activityLevel)),
+                  Expanded(child: _InfoBox(label: 'Activity', value: hive.activityLevel, tintColor: accent)),
                   const SizedBox(width: 12),
-                  Expanded(child: _InfoBox(label: 'HIVE MODEL', value: hive.hiveModel)),
+                  Expanded(child: _InfoBox(label: 'HIVE MODEL', value: hive.hiveModel, tintColor: accent)),
                 ],
               ),
               const SizedBox(height: 20),
               GlassCard(
                 padding: const EdgeInsets.all(18),
                 borderRadius: 18,
+                tintColor: accent,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -149,6 +150,7 @@ class _HiveDetailBody extends StatelessWidget {
               GlassCard(
                 padding: const EdgeInsets.all(18),
                 borderRadius: 18,
+                tintColor: accent,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -206,13 +208,15 @@ class _HiveDetailBody extends StatelessWidget {
 class _InfoBox extends StatelessWidget {
   final String label;
   final String value;
-  const _InfoBox({required this.label, required this.value});
+  final Color? tintColor;
+  const _InfoBox({required this.label, required this.value, this.tintColor});
 
   @override
   Widget build(BuildContext context) {
     return GlassCard(
       padding: const EdgeInsets.all(16),
       borderRadius: 16,
+      tintColor: tintColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
