@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yumm/constants.dart';
+import 'package:yumm/views/widgets/glass_card.dart';
 
 class DocumentationScreen extends StatefulWidget {
   const DocumentationScreen({super.key});
@@ -28,10 +29,10 @@ class _DocumentationScreenState extends State<DocumentationScreen> {
           const SizedBox(height: 12),
           Text(AppStrings.aiConfiguration, style: AppTextStyles.h3c(context)),
           const SizedBox(height: 12),
-          Container(
+          GlassCard(
             padding: const EdgeInsets.all(18),
             margin: const EdgeInsets.only(bottom: 14),
-            decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
+            borderRadius: 18,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -61,9 +62,9 @@ class _DocumentationScreenState extends State<DocumentationScreen> {
               ],
             ),
           ),
-          Container(
+          GlassCard(
             padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
+            borderRadius: 18,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -101,10 +102,10 @@ class _DocCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GlassCard(
       margin: const EdgeInsets.only(bottom: 14),
       padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
+      borderRadius: 18,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

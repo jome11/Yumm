@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumm/viewmodels/deploy_hive_cubit.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/views/validators.dart';
+import 'package:yumm/views/widgets/glass_card.dart';
 
 class _HiveTypeOption {
   final String title;
@@ -254,14 +255,10 @@ class _SectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GlassCard(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColors.surface(context),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.divider(context)),
-      ),
+      borderRadius: 20,
       child: child,
     );
   }

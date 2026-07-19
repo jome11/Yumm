@@ -10,6 +10,7 @@ import 'package:yumm/viewmodels/hive_detail_event.dart';
 import 'package:yumm/viewmodels/hive_detail_state.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/views/hive_location_screen.dart';
+import 'package:yumm/views/widgets/glass_card.dart';
 
 class HiveDetailScreen extends StatelessWidget {
   final String hiveId;
@@ -110,9 +111,9 @@ class _HiveDetailBody extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              Container(
+              GlassCard(
                 padding: const EdgeInsets.all(18),
-                decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
+                borderRadius: 18,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -145,9 +146,9 @@ class _HiveDetailBody extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Container(
+              GlassCard(
                 padding: const EdgeInsets.all(18),
-                decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
+                borderRadius: 18,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -209,9 +210,9 @@ class _InfoBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GlassCard(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(16)),
+      borderRadius: 16,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

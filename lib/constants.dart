@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:yumm/theme/app_colors.dart' as new_colors;
 
 class AppColors {
   AppColors._();
 
-  static const Color primary = Color(0xFFF3A93B);
-  static const Color primaryDark = Color(0xFFB9791E);
+  static const Color primary = new_colors.AppColors.gold;
+  static const Color primaryDark = new_colors.AppColors.goldMuted;
 
-  static const Color lightBackground = Color(0xFFF1EEE6);
-  static const Color lightSurface = Colors.white;
-  static const Color lightTextPrimary = Color(0xFF1C1A16);
-  static const Color lightTextSecondary = Color(0xFF7A756B);
-  static const Color lightDivider = Color(0xFFE7E2D8);
+  static const Color lightBackground = new_colors.AppColors.lightBackground;
+  static const Color lightSurface = new_colors.AppColors.lightSurface;
+  static const Color lightTextPrimary = new_colors.AppColors.lightTextPrimary;
+  static const Color lightTextSecondary = new_colors.AppColors.lightTextSecondary;
+  static const Color lightDivider = new_colors.AppColors.lightSurfaceBorder;
 
-  static const Color darkBackground = Color(0xFF15130E);
-  static const Color darkSurface = Color(0xFF201C14);
-  static const Color darkTextPrimary = Color(0xFFF5F2EA);
-  static const Color darkTextSecondary = Color(0xFF9C9686);
-  static const Color darkDivider = Color(0xFF322C1F);
+  static const Color darkBackground = new_colors.AppColors.darkBackground;
+  static const Color darkSurface = new_colors.AppColors.darkSurface;
+  static const Color darkTextPrimary = new_colors.AppColors.darkTextPrimary;
+  static const Color darkTextSecondary = new_colors.AppColors.darkTextSecondary;
+  static const Color darkDivider = new_colors.AppColors.darkSurfaceBorder;
 
-  static const Color chrome = Color(0xFF17150F);
+  static const Color chrome = Color(0xFF070B08); // Darker version of darkBackground
 
-  static const Color statusHarvestReady = Color(0xFF544512);
-  static const Color statusWarning = Color(0xFF5B2323);
-  static const Color statusOptimal = Color(0xFF1B4332);
-  static const Color statusRoutine = Color(0xFF1B2B4A);
+  static const Color statusHarvestReady = new_colors.AppColors.gold;
+  static const Color statusWarning = new_colors.AppColors.warning;
+  static const Color statusOptimal = new_colors.AppColors.success;
+  static const Color statusRoutine = new_colors.AppColors.info;
 
-  static const Color accentGold = Color(0xFFE0B341);
-  static const Color accentRed = Color(0xFFE06666);
-  static const Color accentGreen = Color(0xFF4CAF7D);
-  static const Color accentBlue = Color(0xFF5C8DE0);
+  static const Color accentGold = new_colors.AppColors.gold;
+  static const Color accentRed = new_colors.AppColors.warning;
+  static const Color accentGreen = new_colors.AppColors.success;
+  static const Color accentBlue = new_colors.AppColors.info;
 
-  static const Color tagPriority = Color(0xFFC9A22B);
-  static const Color tagWarning = Color(0xFFC0392B);
-  static const Color tagRoutine = Color(0xFF2E7D5B);
+  static const Color tagPriority = new_colors.AppColors.gold;
+  static const Color tagWarning = new_colors.AppColors.warning;
+  static const Color tagRoutine = new_colors.AppColors.success;
 
   static Color statusColor(String label) {
     switch (label) {
@@ -94,14 +95,14 @@ class AppColors {
 class AppTextStyles {
   AppTextStyles._();
 
-  static const TextStyle h1 = TextStyle(fontSize: 28, fontWeight: FontWeight.w800, height: 1.15);
-  static const TextStyle h2 = TextStyle(fontSize: 22, fontWeight: FontWeight.w800);
-  static const TextStyle h3 = TextStyle(fontSize: 17, fontWeight: FontWeight.w700);
-  static const TextStyle body = TextStyle(fontSize: 14, fontWeight: FontWeight.w400);
-  static const TextStyle bodySecondary = TextStyle(fontSize: 13, fontWeight: FontWeight.w400);
-  static const TextStyle caption = TextStyle(fontSize: 11, fontWeight: FontWeight.w600, letterSpacing: 0.6);
-  static const TextStyle statNumber = TextStyle(fontSize: 26, fontWeight: FontWeight.w800);
-  static const TextStyle button = TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white);
+  static TextStyle h1 = GoogleFonts.playfairDisplay(fontSize: 28, fontWeight: FontWeight.w700, height: 1.15);
+  static TextStyle h2 = GoogleFonts.playfairDisplay(fontSize: 22, fontWeight: FontWeight.w700);
+  static TextStyle h3 = GoogleFonts.inter(fontSize: 17, fontWeight: FontWeight.w600);
+  static TextStyle body = GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400);
+  static TextStyle bodySecondary = GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400);
+  static TextStyle caption = GoogleFonts.jetBrainsMono(fontSize: 11, fontWeight: FontWeight.w500, letterSpacing: 1.6);
+  static TextStyle statNumber = GoogleFonts.playfairDisplay(fontSize: 26, fontWeight: FontWeight.w700);
+  static TextStyle button = GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white);
 
   static TextStyle h1c(BuildContext c) => h1.copyWith(color: AppColors.textPrimary(c));
   static TextStyle h2c(BuildContext c) => h2.copyWith(color: AppColors.textPrimary(c));

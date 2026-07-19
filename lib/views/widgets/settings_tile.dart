@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yumm/constants.dart';
+import 'package:yumm/views/widgets/glass_card.dart';
 
 class SettingsTile extends StatelessWidget {
   final String title;
@@ -17,10 +18,10 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GlassCard(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-      decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(16)),
+      borderRadius: 16,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),

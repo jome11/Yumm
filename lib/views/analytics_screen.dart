@@ -8,6 +8,8 @@ import 'package:yumm/viewmodels/analytics_event.dart';
 import 'package:yumm/viewmodels/analytics_state.dart';
 import 'package:yumm/views/widgets/yield_chart.dart';
 import 'package:yumm/constants.dart';
+import 'package:yumm/views/widgets/glass_card.dart';
+import 'package:yumm/views/widgets/hex_pattern_card.dart';
 
 class AnalyticsScreen extends StatelessWidget {
   const AnalyticsScreen({super.key});
@@ -51,10 +53,10 @@ class _AnalyticsBody extends StatelessWidget {
                 Text(AppStrings.analytics,
                     style: AppTextStyles.h1c(context).copyWith(fontStyle: FontStyle.italic)),
                 const SizedBox(height: 18),
-                Container(
+                HexPatternCard(
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(20)),
+                  borderRadius: 20,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -105,9 +107,9 @@ class _AnalyticsBody extends StatelessWidget {
                 const SizedBox(height: 24),
                 Text(AppStrings.apiaryEfficiency, style: AppTextStyles.h3c(context)),
                 const SizedBox(height: 12),
-                Container(
+                GlassCard(
                   padding: const EdgeInsets.all(18),
-                  decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(20)),
+                  borderRadius: 20,
                   child: Column(
                     children: state.efficiency
                         .map((e) => Padding(
@@ -145,13 +147,9 @@ class _AnalyticsBody extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Container(
+                GlassCard(
                   padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppColors.surface(context),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: AppColors.divider(context)),
-                  ),
+                  borderRadius: 20,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -202,10 +200,10 @@ class _MetricBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GlassCard(
       width: fullWidth ? double.infinity : null,
       padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(20)),
+      borderRadius: 20,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

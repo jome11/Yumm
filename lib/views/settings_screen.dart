@@ -7,6 +7,7 @@ import 'package:yumm/views/widgets/settings_tile.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/views/documentation_screen.dart';
 import 'package:yumm/views/login_screen.dart';
+import 'package:yumm/views/widgets/glass_card.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -41,9 +42,9 @@ class _SettingsBody extends StatelessWidget {
                     style: AppTextStyles.h1c(context).copyWith(fontStyle: FontStyle.italic)),
                 const SizedBox(height: 18),
                 if (user != null)
-                  Container(
+                  GlassCard(
                     padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
+                    borderRadius: 18,
                     child: Row(
                       children: [
                         CircleAvatar(

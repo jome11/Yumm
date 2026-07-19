@@ -9,6 +9,7 @@ import 'package:yumm/viewmodels/feed_state.dart';
 import 'package:yumm/views/widgets/insight_feed_card.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/views/hive_detail_screen.dart';
+import 'package:yumm/views/widgets/glass_card.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
@@ -85,13 +86,9 @@ class _FeedBodyState extends State<_FeedBody> {
             top: false,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-              child: Container(
+              child: GlassCard(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                decoration: BoxDecoration(
-                  color: AppColors.surface(context),
-                  borderRadius: BorderRadius.circular(28),
-                  border: Border.all(color: AppColors.divider(context)),
-                ),
+                borderRadius: 28,
                 child: Row(
                   children: [
                     IconButton(

@@ -5,6 +5,7 @@ import 'package:yumm/viewmodels/splash_cubit.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/views/dashboard_shell.dart';
 import 'package:yumm/views/welcome_screen.dart';
+import 'package:yumm/views/widgets/hive_pattern_background.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -34,15 +35,22 @@ class _SplashBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(AppAssets.iconTransparent, width: 220, height: 220, fit: BoxFit.contain),
-            const SizedBox(height: 8),
-            Image.asset(AppAssets.wordmarkTransparent, width: 160, fit: BoxFit.contain),
-          ],
-        ),
+      body: Stack(
+        children: [
+          const Positioned.fill(
+            child: HivePatternBackground(hexagonColor: Colors.white),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(AppAssets.iconOnAmber, width: 220, height: 220, fit: BoxFit.contain),
+                const SizedBox(height: 8),
+                Image.asset(AppAssets.wordmarkOnAmber, width: 160, fit: BoxFit.contain),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

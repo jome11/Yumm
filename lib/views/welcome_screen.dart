@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/views/login_screen.dart';
 import 'package:yumm/views/signup_screen.dart';
+import 'package:yumm/views/widgets/hive_pattern_background.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -10,9 +11,14 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+      body: Stack(
+        children: [
+          const Positioned.fill(
+            child: HivePatternBackground(hexagonColor: Colors.white),
+          ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -118,6 +124,8 @@ class WelcomeScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+        ],
       ),
     );
   }

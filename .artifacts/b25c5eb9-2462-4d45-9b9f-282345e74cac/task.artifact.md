@@ -1,0 +1,4 @@
+- [x] Create `lib/views/widgets/hex_pattern_card.dart`
+- [x] Update `lib/views/overview_screen.dart` (Season Yield card)
+- [x] Update `lib/views/analytics_screen.dart` (Total Yield card)
+- [ ] Verify build and appearance

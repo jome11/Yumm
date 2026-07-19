@@ -12,6 +12,8 @@ import 'package:yumm/models/yield_point_model.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/views/hive_detail_screen.dart';
 import 'package:yumm/views/my_hives_screen.dart';
+import 'package:yumm/views/widgets/glass_card.dart';
+import 'package:yumm/views/widgets/hex_pattern_card.dart';
 
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
@@ -108,9 +110,9 @@ class _OverviewBody extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Container(
+                  HexPatternCard(
                     padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(22)),
+                    borderRadius: 22,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -164,10 +166,10 @@ class _OverviewBody extends StatelessWidget {
                   InkWell(
                     borderRadius: BorderRadius.circular(18),
                     onTap: () {},
-                    child: Container(
+                    child: GlassCard(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
+                      borderRadius: 18,
                       child: Row(
                         children: [
                           Icon(Icons.camera_alt_outlined, color: AppColors.textPrimary(context)),
@@ -264,9 +266,9 @@ class _OverviewBody extends StatelessWidget {
   }
 
   Widget _statCard(BuildContext context, {required String value, required String label, required IconData icon}) {
-    return Container(
+    return GlassCard(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-      decoration: BoxDecoration(color: AppColors.surface(context), borderRadius: BorderRadius.circular(18)),
+      borderRadius: 18,
       child: Column(
         children: [
           Icon(icon, color: AppColors.primary, size: 20),
