@@ -1,4 +1,6 @@
-- [x] Update `_fleetCard` in `lib/views/overview_screen.dart` with new styling and health percentage.
-- [x] Add "Feed >" link next to "Latest Alert" in `lib/views/overview_screen.dart`.
-- [x] Update `HiveListTile` in `lib/views/widgets/hive_list_tile.dart` with new styling and dot indicator.
-- [ ] Verify changes in both Light and Dark themes.
+- [x] Update Android icons (mipmap density folders).
+- [x] Update iOS icons (Assets.xcassets).
+- [x] Update macOS icons (Assets.xcassets).
+- [x] Update Windows icon (app_icon.ico).
+- [x] Update Web icons (favicon and touch icons).
+- [x] Verify file updates.

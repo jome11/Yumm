@@ -1,34 +1,45 @@
-# Fix Fleet Status Card Styling
+# Implementation Plan - Update App Icons
 
-The goal is to update the styling of Fleet Status cards in the Overview screen and the My Hives screen to be more theme-aware and visually subtle.
+This plan describes how to replace the current app icons with the new gold-edged logo across all supported platforms (Android, iOS, macOS, Windows, and Web).
 
 ## User Review Required
 
-> [!NOTE]
-> The cards will transition from solid, bold background colors to a subtle tint with a colored dot indicator. This will significantly improve readability in light mode.
+> [!IMPORTANT]
+> This action will overwrite existing app icon files in the project. Please ensure you have a backup if needed, although these can be reverted via Git.
 
 ## Proposed Changes
 
-### [MODIFY] [overview_screen.dart](file:///C:/Users/PAVILION/Desktop/yumm/lib/views/overview_screen.dart)
-- Update `_fleetCard` widget:
-    - Use `AppColors.statusAccent(label).withOpacity(0.12)` for background.
-    - Use `AppColors.statusAccent(label).withOpacity(0.4)` for border.
-    - Add a colored circle indicator before the hive name.
-    - Replace hardcoded `Colors.white` with `AppColors.textPrimary(context)` and `AppColors.textSecondary(context)`.
-    - Change right-side percentage from `humidityPercent` to `healthPercent`.
-- Add a "Feed >" link next to the "Latest Alert" section title.
+We will copy the regenerated icon files from `C:/Users/PAVILION/Downloads/new-app-icons/` to their respective platform-specific locations in the project.
 
-### [MODIFY] [hive_list_tile.dart](file:///C:/Users/PAVILION/Desktop/yumm/lib/views/widgets/hive_list_tile.dart)
-- Update the card decoration:
-    - Use `AppColors.statusAccent(label).withOpacity(0.12)` for background.
-    - Use `AppColors.statusAccent(label).withOpacity(0.4)` for border.
-- Add a colored circle indicator before the hive name.
-- Replace hardcoded `Colors.white` with theme-aware text colors.
-- Ensure the progress bar (`LinearProgressIndicator`) uses status accent colors.
+### Android
+Replace `ic_launcher.png` in all mipmap density folders.
+- **Source**: `android/mipmap-*/ic_launcher.png`
+- **Destination**: `android/app/src/main/res/mipmap-*/ic_launcher.png`
+
+### iOS
+Replace all icon sizes in the AppIcon set.
+- **Source**: `ios/*.png`
+- **Destination**: `ios/Runner/Assets.xcassets/AppIcon.appiconset/`
+
+### macOS
+Replace all icon sizes in the AppIcon set.
+- **Source**: `macos/*.png`
+- **Destination**: `macos/Runner/Assets.xcassets/AppIcon.appiconset/`
+
+### Windows
+Replace the application icon file.
+- **Source**: `windows/app_icon.ico`
+- **Destination**: `windows/runner/resources/app_icon.ico`
+
+### Web
+Replace the favicon and touch icons.
+- **Source**: `web/favicon.png` -> **Destination**: `web/favicon.png`
+- **Source**: `web/Icon-*.png` -> **Destination**: `web/icons/`
 
 ## Verification Plan
 
 ### Manual Verification
-- **Overview Screen**: Verify the 3-item fleet preview shows the new tinted cards with dot indicators and the "Feed >" link.
-- **My Hives Screen**: Verify the full list of hives uses the updated `HiveListTile` styling.
-- **Theming**: Toggle between Light and Dark modes to ensure text is legible and the tint looks good on both backgrounds.
+1.  **Check File Existence**: Verify that the files have been successfully copied to the destination paths.
+2.  **Visual Inspection**: Open a few of the destination files in the IDE to confirm they are the new gold-edged logo.
+3.  **Build**: Recommend the user to perform a full stop-and-restart (or `flutter build`) to see the changes on their device/emulator.
+    - *Note*: On Android, a full uninstall/reinstall may be required to clear the OS icon cache.

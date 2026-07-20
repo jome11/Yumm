@@ -25,6 +25,14 @@ class YummApp extends StatelessWidget {
             final isDark = Theme.of(context).brightness == Brightness.dark;
             return Stack(
               children: [
+                // The solid background color now lives here instead of in
+                // each Scaffold (which is transparent) - this is what
+                // actually paints the screen behind the hex pattern.
+                Positioned.fill(
+                  child: Container(
+                    color: isDark ? new_colors.AppColors.darkBackground : new_colors.AppColors.lightBackground,
+                  ),
+                ),
                 Positioned.fill(
                   child: HexagonBackground(
                     color: isDark

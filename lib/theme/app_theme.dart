@@ -25,7 +25,7 @@ class AppTheme {
   static ThemeData get dark => ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: AppColors.darkBackground,
+        scaffoldBackgroundColor: Colors.transparent,
         canvasColor: AppColors.darkBackground,
         colorScheme: const ColorScheme.dark(
           surface: AppColors.darkSurface,
@@ -57,7 +57,7 @@ class AppTheme {
   static ThemeData get light => ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
-        scaffoldBackgroundColor: AppColors.lightBackground,
+        scaffoldBackgroundColor: Colors.transparent,
         canvasColor: AppColors.lightBackground,
         colorScheme: const ColorScheme.light(
           surface: AppColors.lightSurface,
