@@ -37,27 +37,36 @@ class HiveListTile extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Hive #${hive.id}',
                           style: TextStyle(color: AppColors.textPrimary(context), fontSize: 18, fontWeight: FontWeight.w800)),
-                      Text(hive.apiaryName, style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12)),
+                      const Spacer(),
+                      Flexible(
+                        child: Text(
+                          hive.apiaryName,
+                          style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 6),
-            Row(
-              children: [
-                Text('${hive.temperatureCelsius}',
-                    style: TextStyle(color: AppColors.textPrimary(context), fontSize: 16, fontWeight: FontWeight.w800)),
-                Text('C', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
-                const SizedBox(width: 10),
-                Text('${hive.humidityPercent}% RH', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
-                const SizedBox(width: 10),
-                Text('${hive.weightKg}Kg', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Text('${hive.temperatureCelsius}',
+                      style: TextStyle(color: AppColors.textPrimary(context), fontSize: 16, fontWeight: FontWeight.w800)),
+                  Text('C', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
+                  const SizedBox(width: 10),
+                  Text('${hive.humidityPercent}% RH', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
+                  const SizedBox(width: 10),
+                  Text('${hive.weightKg}Kg', style: TextStyle(color: AppColors.textSecondary(context), fontSize: 13)),
+                ],
+              ),
             ),
             const SizedBox(height: 14),
             ClipRRect(

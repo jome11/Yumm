@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yumm/constants.dart';
 import 'package:yumm/views/login_screen.dart';
 import 'package:yumm/views/signup_screen.dart';
-import 'package:yumm/views/widgets/hive_pattern_background.dart';
+import 'package:yumm/views/widgets/honeycomb_pattern.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -10,11 +10,18 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.authBackground,
       body: Stack(
         children: [
-          const Positioned.fill(
-            child: HivePatternBackground(hexagonColor: Colors.white),
+          Positioned(
+            top: -30,
+            left: -30,
+            child: HoneycombPattern(size: 160, color: Colors.black.withOpacity(0.15)),
+          ),
+          Positioned(
+            bottom: -30,
+            right: -30,
+            child: HoneycombPattern(size: 160, color: Colors.black.withOpacity(0.15)),
           ),
           SafeArea(
             child: Padding(

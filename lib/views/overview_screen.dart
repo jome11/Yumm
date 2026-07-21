@@ -286,15 +286,18 @@ class _OverviewBody extends StatelessWidget {
 
   Widget _statCard(BuildContext context, {required String value, required String label, required IconData icon, required Color iconColor}) {
     return GlassCard(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 4),
       borderRadius: 18,
       child: Column(
         children: [
           Icon(icon, color: iconColor, size: 20),
           const SizedBox(height: 8),
-          Text(value, style: AppTextStyles.h2c(context)),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(value, style: AppTextStyles.h2c(context)),
+          ),
           const SizedBox(height: 2),
-          Text(label, style: AppTextStyles.captionc(context)),
+          Text(label, style: AppTextStyles.captionc(context), textAlign: TextAlign.center),
         ],
       ),
     );
@@ -332,7 +335,13 @@ class _OverviewBody extends StatelessWidget {
                       Text('Hive #${hive.id}',
                           style: TextStyle(color: AppColors.textPrimary(context), fontSize: 15, fontWeight: FontWeight.w700)),
                       const SizedBox(width: 8),
-                      Text(hive.apiaryName, style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12)),
+                      Expanded(
+                        child: Text(
+                          hive.apiaryName,
+                          style: TextStyle(color: AppColors.textSecondary(context), fontSize: 12),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -340,6 +349,7 @@ class _OverviewBody extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yumm/views/widgets/app_text_field.dart';
+import 'package:yumm/constants.dart';
 
 class AuthFormField extends StatelessWidget {
   final String label;
@@ -9,6 +10,7 @@ class AuthFormField extends StatelessWidget {
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
 
   const AuthFormField({
     super.key,
@@ -19,19 +21,24 @@ class AuthFormField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.validator,
     this.suffixIcon,
+    this.prefixIcon,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppTextField(
-      label: label,
+      label: label.toUpperCase(),
       controller: controller,
       hint: hint,
       obscureText: obscureText,
       keyboardType: keyboardType,
       validator: validator,
       suffixIcon: suffixIcon,
-      labelColor: Colors.white,
+      prefixIcon: prefixIcon,
+      labelStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.6),
+      labelColor: AppColors.primary,
+      filled: true,
+      fillColor: const Color(0xFFF5DFAE),
     );
   }
 }

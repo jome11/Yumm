@@ -1,6 +1,2 @@
-- [x] Update Android icons (mipmap density folders).
-- [x] Update iOS icons (Assets.xcassets).
-- [x] Update macOS icons (Assets.xcassets).
-- [x] Update Windows icon (app_icon.ico).
-- [x] Update Web icons (favicon and touch icons).
-- [x] Verify file updates.
+- [ ] Fix RenderFlex overflow in `lib/views/login_screen.dart` using `Wrap` widget.
+- [ ] Verify fix on device/emulator.

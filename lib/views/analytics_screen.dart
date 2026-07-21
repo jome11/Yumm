@@ -209,18 +209,22 @@ class _MetricBox extends StatelessWidget {
         children: [
           Text(label, style: AppTextStyles.captionc(context)),
           const SizedBox(height: 8),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(value, style: AppTextStyles.h1c(context).copyWith(color: valueColor ?? AppColors.textPrimary(context))),
-              if (suffix != null) ...[
-                const SizedBox(width: 4),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
-                  child: Text(suffix!, style: AppTextStyles.bodySecondaryc(context)),
-                ),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(value, style: AppTextStyles.h1c(context).copyWith(color: valueColor ?? AppColors.textPrimary(context))),
+                if (suffix != null) ...[
+                  const SizedBox(width: 4),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Text(suffix!, style: AppTextStyles.bodySecondaryc(context)),
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
           if (subtitle != null) ...[
             const SizedBox(height: 4),

@@ -22,6 +22,9 @@ class AppColors {
 
   static const Color chrome = Color(0xFF070B08); // Darker version of darkBackground
 
+  static const Color honeycombGold = Color(0xFFFDB827);
+  static const Color authBackground = Color(0xFFFDB827);
+
   static const Color statusHarvestReady = new_colors.AppColors.gold;
   static const Color statusWarning = new_colors.AppColors.warning;
   static const Color statusOptimal = new_colors.AppColors.success;
